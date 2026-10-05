@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مرصد سعر الدينار العراقي · Iraq Dinar Watch</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0f1720; --panel:#17212b; --panel2:#1e2b38; --line:#2b3a48;
+    --text:#e7edf3; --muted:#93a4b3; --accent:#3ea6ff; --accent2:#ffb454;
+    --good:#4caf50; --bad:#ef5350; --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:"Segoe UI",Tahoma,"Noto Kufi Arabic",system-ui,sans-serif;line-height:1.5}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px}
+  header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+  h1{font-size:1.5rem;margin:0}
+  .sub{color:var(--muted);font-size:.9rem;margin:2px 0 0}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap}
+  button,select{background:var(--panel2);color:var(--text);border:1px solid var(--line);
+    border-radius:10px;padding:8px 12px;font-size:.9rem;cursor:pointer}
+  button:hover,select:hover{border-color:var(--accent)}
+  button.active{background:var(--accent);color:#04121f;border-color:var(--accent);font-weight:600}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+  .kpi .label{color:var(--muted);font-size:.82rem}
+  .kpi .value{font-size:1.7rem;font-weight:700;margin-top:4px}
+  .kpi .note{color:var(--muted);font-size:.8rem;margin-top:2px}
+  .up{color:var(--bad)} .down{color:var(--good)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin:16px 0}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+  .chart-box{position:relative;height:420px}
+  footer{color:var(--muted);font-size:.82rem;margin-top:24px;border-top:1px solid var(--line);padding-top:14px}
+  footer a{color:var(--accent);text-decoration:none}
+  .disclaimer{background:#1b2733;border:1px solid var(--line);border-radius:10px;padding:10px 14px;
+    color:var(--muted);font-size:.82rem;margin-top:10px}
+  .err{background:#3a1e1e;border:1px solid #6b2b2b;color:#ffd7d7;padding:14px;border-radius:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1 id="title"></h1>
+      <p class="sub" id="subtitle"></p>
+    </div>
+    <div class="toolbar">
+      <button id="langBtn" onclick="toggleLang()">English</button>
+    </div>
+  </header>
+
+  <div id="kpis" class="kpis"></div>
+
+  <div class="card">
+    <div class="controls">
+      <label id="seriesLabel" for="seriesSel"></label>
+      <select id="seriesSel" onchange="render()"></select>
+      <span style="flex:1"></span>
+      <button id="btnClose" class="active" onclick="setBasis('close')"></button>
+      <button id="btnOpen" onclick="setBasis('open')"></button>
+    </div>
+    <div class="chart-box"><canvas id="chart"></canvas></div>
+  </div>
+
+  <div id="msg"></div>
+
+  <div class="disclaimer" id="disclaimer"></div>
+
+  <footer id="footer"></footer>
+</div>
+
+<script>
+// ------------------------------------------------------------------ config
+const CSV_URL = "data/daily_fx.csv";
+// Official CBI rate over time, IQD per 1 USD — a step function, not a constant:
+//   1,450 after the Dec-2020 devaluation, then 1,300 after the Feb-2023 revaluation.
+const OFFICIAL_RATE_BASE = 1450;                    // from the start of the data (Dec 2020)
+const OFFICIAL_RATE_STEPS = [
+  { from: "2023-02-08", rate: 1300 },               // Feb 2023 revaluation
+];
+function officialRateFor(date){
+  let r = OFFICIAL_RATE_BASE;
+  for (const s of OFFICIAL_RATE_STEPS) if (date >= s.from) r = s.rate;
+  return r;
+}
+const REPO_URL = "https://github.com/HusseinKh90/Iraq-parallel-exchange-rate";
+
+// Series shown in the selector. Keys are the CSV column prefixes.
+const SERIES = [
+  {key:"daily_avg",         ar:"المعدل العام",       en:"Overall average"},
+  {key:"baghdad_avg",       ar:"معدل بغداد",         en:"Baghdad average"},
+  {key:"baghdad_generic",   ar:"بغداد",              en:"Baghdad"},
+  {key:"baghdad_kifah",     ar:"الكفاح",             en:"Kifah"},
+  {key:"baghdad_harithiya", ar:"الحارثية",           en:"Harithiya"},
+  {key:"baghdad_retail",    ar:"بغداد (صيرفات)",     en:"Baghdad (retail)"},
+  {key:"basra",             ar:"البصرة",             en:"Basra"},
+  {key:"erbil",             ar:"أربيل",              en:"Erbil"},
+  {key:"erbil_retail",      ar:"أربيل (اسكان)",      en:"Erbil (retail)"},
+  {key:"karbala",           ar:"كربلاء",             en:"Karbala"},
+  {key:"kirkuk",            ar:"كركوك",              en:"Kirkuk"},
+  {key:"mosul",             ar:"الموصل",             en:"Mosul"},
+  {key:"najaf",             ar:"النجف",              en:"Najaf"},
+  {key:"sulaymaniyah",      ar:"السليمانية",         en:"Sulaymaniyah"},
+];
+
+const I18N = {
+  ar:{title:"مرصد سعر الدينار العراقي",
+      subtitle:"سعر صرف الدولار في السوق الموازية · تحديث يومي",
+      seriesLabel:"السلسلة:", close:"الإغلاق", open:"الافتتاح",
+      kpiLatest:"آخر سعر (المعدل العام)", kpiPremium:"الفارق عن السعر الرسمي",
+      kpiChange:"التغير خلال المدة", kpiCoverage:"عدد المدن في المعدل",
+      per100:"≈ {v} دينار لكل 100$", official:"السعر الرسمي",
+      unit:"دينار/دولار", ref:"السعر الرسمي (تقريبي)",
+      disclaimer:"تنبيه: هذه بيانات مُجمّعة من السوق الموازية (مصدرها قناة @dollariraqi) وليست سعراً رسمياً من البنك المركزي، ولا تُعدّ نصيحة مالية.",
+      footer:'المصدر: قناة @dollariraqi · مشروع بيانات مفتوح · <a id="ghLink" href="#">GitHub</a>',
+      loadErr:"تعذّر تحميل البيانات. عند التشغيل محلياً افتح الصفحة عبر خادم محلي (وليس بفتح الملف مباشرة)، أو انشرها على GitHub Pages.",
+      langBtn:"English"},
+  en:{title:"Iraq Dinar Watch",
+      subtitle:"Parallel-market USD exchange rate · updated daily",
+      seriesLabel:"Series:", close:"Close", open:"Open",
+      kpiLatest:"Latest rate (overall average)", kpiPremium:"Premium over official rate",
+      kpiChange:"Change over period", kpiCoverage:"Cities in the average",
+      per100:"≈ {v} IQD per 100$", official:"Official rate",
+      unit:"IQD/USD", ref:"Official rate (approx.)",
+      disclaimer:"Note: this is aggregated parallel-market data (sourced from the @dollariraqi channel), not an official Central Bank rate, and is not financial advice.",
+      footer:'Source: @dollariraqi channel · open data project · <a id="ghLink" href="#">GitHub</a>',
+      loadErr:"Could not load the data. When running locally, open the page through a local server (not by double-clicking the file), or publish it on GitHub Pages.",
+      langBtn:"العربية"},
+};
+
+let LANG = "ar";
+let BASIS = "close";
+let ROWS = [];
+let chart = null;
+
+const fmt = n => n==null||isNaN(n) ? "—" : Number(n).toLocaleString(LANG==="ar"?"ar-EG":"en-US",{maximumFractionDigits:1});
+
+function t(k){return I18N[LANG][k];}
+
+function toggleLang(){
+  LANG = LANG==="ar" ? "en" : "ar";
+  document.documentElement.lang = LANG;
+  document.documentElement.dir = LANG==="ar" ? "rtl" : "ltr";
+  applyStaticText();
+  buildSeriesOptions();
+  render();
+}
+
+function setBasis(b){
+  BASIS=b;
+  document.getElementById("btnClose").classList.toggle("active",b==="close");
+  document.getElementById("btnOpen").classList.toggle("active",b==="open");
+  render();
+}
+
+function applyStaticText(){
+  document.getElementById("title").textContent = t("title");
+  document.getElementById("subtitle").textContent = t("subtitle");
+  document.getElementById("seriesLabel").textContent = t("seriesLabel");
+  document.getElementById("btnClose").textContent = t("close");
+  document.getElementById("btnOpen").textContent = t("open");
+  document.getElementById("langBtn").textContent = t("langBtn");
+  document.getElementById("disclaimer").textContent = t("disclaimer");
+  document.getElementById("footer").innerHTML = t("footer");
+  const gh=document.getElementById("ghLink");
+  if(gh) gh.href = REPO_URL;
+}
+
+function buildSeriesOptions(){
+  const sel=document.getElementById("seriesSel");
+  const cur=sel.value;
+  sel.innerHTML="";
+  SERIES.forEach(s=>{
+    const o=document.createElement("option");
+    o.value=s.key; o.textContent=LANG==="ar"?s.ar:s.en;
+    sel.appendChild(o);
+  });
+  sel.value=cur||"daily_avg";
+}
+
+function colVals(key){
+  const col=`${key}_${BASIS}`;
+  return ROWS.map(r=>{const v=parseFloat(r[col]); return isNaN(v)?null:v;});
+}
+
+function renderKPIs(){
+  const box=document.getElementById("kpis"); box.innerHTML="";
+  const avg=colVals("daily_avg");
+  // latest non-null
+  let latest=null,latestDate=null;
+  for(let i=ROWS.length-1;i>=0;i--){ if(avg[i]!=null){latest=avg[i];latestDate=ROWS[i].date;break;} }
+  // first non-null for period change
+  let first=null; for(let i=0;i<ROWS.length;i++){ if(avg[i]!=null){first=avg[i];break;} }
+
+  const card=(label,value,note,cls)=>{
+    const d=document.createElement("div"); d.className="kpi";
+    d.innerHTML=`<div class="label">${label}</div><div class="value ${cls||''}">${value}</div><div class="note">${note||''}</div>`;
+    box.appendChild(d);
+  };
+
+  if(latest!=null){
+    card(t("kpiLatest"), fmt(latest)+" ", t("per100").replace("{v}",fmt(latest*100))+" · "+latestDate);
+    const off=officialRateFor(latestDate);
+    const prem=(latest-off)/off*100;
+    card(t("kpiPremium"), (prem>=0?"+":"")+prem.toFixed(1)+"%",
+         t("official")+": "+fmt(off), prem>=0?"up":"down");
+    if(first!=null){
+      const ch=(latest-first)/first*100;
+      card(t("kpiChange"), (ch>=0?"+":"")+ch.toFixed(1)+"%", ROWS[0].date+" → "+latestDate, ch>=0?"up":"down");
+    }
+  }
+  const lastCov=[...ROWS].reverse().find(r=>r.n_cities_in_avg);
+  if(lastCov) card(t("kpiCoverage"), lastCov.n_cities_in_avg, "");
+}
+
+function render(){
+  if(!ROWS.length) return;
+  renderKPIs();
+  const key=document.getElementById("seriesSel").value||"daily_avg";
+  const labels=ROWS.map(r=>r.date);
+  const data=colVals(key);
+  const official=labels.map(d=>officialRateFor(d));
+  const meta=SERIES.find(s=>s.key===key)||SERIES[0];
+
+  if(chart) chart.destroy();
+  chart=new Chart(document.getElementById("chart"),{
+    type:"line",
+    data:{labels,datasets:[
+      {label:(LANG==="ar"?meta.ar:meta.en),data,borderColor:"#3ea6ff",backgroundColor:"rgba(62,166,255,.12)",
+       borderWidth:2,pointRadius:data.length>60?0:2,tension:.2,spanGaps:true,fill:true},
+      {label:t("ref"),data:official,borderColor:"#ffb454",borderWidth:1.5,borderDash:[6,5],pointRadius:0,fill:false},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+      plugins:{legend:{labels:{color:"#e7edf3"}},
+        tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${fmt(c.parsed.y)} ${t("unit")}`}}},
+      scales:{
+        x:{ticks:{color:"#93a4b3",maxTicksLimit:12},grid:{color:"#22303c"}},
+        y:{ticks:{color:"#93a4b3",callback:v=>fmt(v)},grid:{color:"#22303c"},
+           title:{display:true,text:t("unit"),color:"#93a4b3"}}
+      }}
+  });
+}
+
+// ------------------------------------------------------------------ boot
+applyStaticText();
+buildSeriesOptions();
+Papa.parse(CSV_URL,{download:true,header:true,skipEmptyLines:true,
+  complete:res=>{
+    ROWS=res.data.filter(r=>r.date);
+    if(!ROWS.length){document.getElementById("msg").innerHTML=`<div class="err">${t("loadErr")}</div>`;return;}
+    render();
+  },
+  error:()=>{document.getElementById("msg").innerHTML=`<div class="err">${t("loadErr")}</div>`;}
+});
+</script>
+</body>
+</html>
