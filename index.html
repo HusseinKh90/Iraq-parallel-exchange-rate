@@ -89,22 +89,7 @@ function officialRateFor(date){
 const REPO_URL = "https://github.com/HusseinKh90/Iraq-parallel-exchange-rate";
 
 // Series shown in the selector. Keys are the CSV column prefixes.
-const SERIES = [
-  {key:"daily_avg",         ar:"المعدل العام",       en:"Overall average"},
-  {key:"baghdad_avg",       ar:"معدل بغداد",         en:"Baghdad average"},
-  {key:"baghdad_generic",   ar:"بغداد",              en:"Baghdad"},
-  {key:"baghdad_kifah",     ar:"الكفاح",             en:"Kifah"},
-  {key:"baghdad_harithiya", ar:"الحارثية",           en:"Harithiya"},
-  {key:"baghdad_retail",    ar:"بغداد (صيرفات)",     en:"Baghdad (retail)"},
-  {key:"basra",             ar:"البصرة",             en:"Basra"},
-  {key:"erbil",             ar:"أربيل",              en:"Erbil"},
-  {key:"erbil_retail",      ar:"أربيل (اسكان)",      en:"Erbil (retail)"},
-  {key:"karbala",           ar:"كربلاء",             en:"Karbala"},
-  {key:"kirkuk",            ar:"كركوك",              en:"Kirkuk"},
-  {key:"mosul",             ar:"الموصل",             en:"Mosul"},
-  {key:"najaf",             ar:"النجف",              en:"Najaf"},
-  {key:"sulaymaniyah",      ar:"السليمانية",         en:"Sulaymaniyah"},
-];
+let SERIES = [];
 
 const I18N = {
   ar:{title:"مرصد سعر الدينار العراقي",
@@ -178,7 +163,7 @@ function buildSeriesOptions(){
     o.value=s.key; o.textContent=LANG==="ar"?s.ar:s.en;
     sel.appendChild(o);
   });
-  sel.value=cur||"daily_avg";
+  sel.value = SERIES.some(s=>s.key===cur) ? cur : (SERIES[0] ? SERIES[0].key : "");
 }
 
 function colVals(key){
@@ -188,7 +173,7 @@ function colVals(key){
 
 function renderKPIs(){
   const box=document.getElementById("kpis"); box.innerHTML="";
-  const avg=colVals("daily_avg");
+  const avg = colVals(SERIES[0] ? SERIES[0].key : "baghdad");
   // latest non-null
   let latest=null,latestDate=null;
   for(let i=ROWS.length-1;i>=0;i--){ if(avg[i]!=null){latest=avg[i];latestDate=ROWS[i].date;break;} }
@@ -219,7 +204,7 @@ function renderKPIs(){
 function render(){
   if(!ROWS.length) return;
   renderKPIs();
-  const key=document.getElementById("seriesSel").value||"daily_avg";
+  const key=document.getElementById("seriesSel").value||(SERIES[0] ? SERIES[0].key : "baghdad");
   const labels=ROWS.map(r=>r.date);
   const data=colVals(key);
   const official=labels.map(d=>officialRateFor(d));
@@ -246,10 +231,34 @@ function render(){
 
 // ------------------------------------------------------------------ boot
 applyStaticText();
-buildSeriesOptions();
 Papa.parse(CSV_URL,{download:true,header:true,skipEmptyLines:true,
   complete:res=>{
     ROWS=res.data.filter(r=>r.date);
+
+      let cols = Object.keys(res.data[0] || {});
+      SERIES = [];
+      const AR_MAP = {
+        "baghdad": "بغداد",
+        "basra": "البصرة",
+        "erbil": "أربيل",
+        "mosul": "الموصل",
+        "karbala": "كربلاء",
+        "kirkuk": "كركوك",
+        "najaf": "النجف",
+        "sulaymaniyah": "السليمانية"
+      };
+      cols.forEach(c => {
+        if (c.endsWith("_close") && !c.startsWith("overall")) {
+          let key = c.replace("_close", "");
+          SERIES.push({
+            key: key,
+            ar: AR_MAP[key] || key,
+            en: key.charAt(0).toUpperCase() + key.slice(1)
+          });
+        }
+      });
+      if (SERIES.length > 0) buildSeriesOptions();
+
     if(!ROWS.length){document.getElementById("msg").innerHTML=`<div class="err">${t("loadErr")}</div>`;return;}
     render();
   },
