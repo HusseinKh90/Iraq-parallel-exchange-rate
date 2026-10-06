@@ -1485,4 +1485,5 @@ date,baghdad_open,baghdad_close,basra_open,basra_close,erbil_open,erbil_close,ba
 2026-09-30,1572.5,1570.75,,,,,baghdad_generic,dollar_price|iqborsa
 2026-10-01,1571.0,1571.0,1569.5,1569.5,1572.5,1572.5,baghdad_kifah,dollariraqi|iqborsa
 2026-10-04,1579.0,1585.0,1581.0,1581.25,1581.0,1581.0,baghdad_generic,dollariraqi|iqborsa
-2026-10-05,1591.0,1596.5,,,,,baghdad_generic,iqborsa
+2026-10-05,1591.0,1596.5,1596.0,1596.0,1601.0,1601.0,baghdad_generic,dollariraqi|iqborsa
+2026-10-06,1598.0,1623.0,,,,,baghdad_generic,iqborsa
