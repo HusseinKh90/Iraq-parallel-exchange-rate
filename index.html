@@ -3,7 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مرصد سعر الدينار العراقي · Iraq Dinar Watch</title>
+<script>
+// Editorial is the default; comparison links can preview the other designs.
+const requestedDesign = new URLSearchParams(location.search).get("design");
+document.documentElement.dataset.design = ["editorial", "report", "slate"].includes(requestedDesign) ? requestedDesign : "editorial";
+</script>
+<title>بيانات أسعار الصرف في العراق · Exchange Rate Data in Iraq</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -38,6 +43,65 @@
   .disclaimer{background:#1b2733;border:1px solid var(--line);border-radius:10px;padding:10px 14px;
     color:var(--muted);font-size:.82rem;margin-top:10px}
   .err{background:#3a1e1e;border:1px solid #6b2b2b;color:#ffd7d7;padding:14px;border-radius:10px}
+  .kpi .value{font-variant-numeric:tabular-nums;text-align:start}
+  [dir="rtl"] .kpi .value{text-align:right}
+  button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+
+  /* A — Editorial: warm paper, deep green ink, generous type and quiet rules. */
+  :root[data-design="editorial"]{
+    --bg:#f6f4ee;--panel:#f6f4ee;--panel2:#eeece5;--line:#deded5;
+    --text:#24362f;--muted:#687269;--accent:#28634d;--accent2:#a38049;
+    --bad:#965044;--good:#28634d;--radius:0;
+  }
+  /* B — Data report: white paper, navy typography and ruled columns. */
+  :root[data-design="report"]{
+    --bg:#fff;--panel:#fff;--panel2:#f2f5f8;--line:#dce3eb;
+    --text:#172e49;--muted:#627389;--accent:#2c6094;--accent2:#9c7950;
+    --bad:#9a4c43;--good:#376b58;--radius:0;
+  }
+  /* C — Slate: neutral charcoal, muted amber and a clear unfilled series. */
+  :root[data-design="slate"]{
+    --bg:#202322;--panel:#202322;--panel2:#303532;--line:#3e4540;
+    --text:#edece5;--muted:#a7afa7;--accent:#dec48c;--accent2:#899d91;
+    --bad:#dca399;--good:#a0bba5;--radius:0;
+  }
+  :root:not([data-design="classic"]) .wrap{max-width:1240px;padding:48px 40px 28px}
+  :root:not([data-design="classic"]) header{align-items:flex-start;margin-bottom:36px}
+  :root:not([data-design="classic"]) h1{font-size:clamp(1.55rem,3vw,2.4rem);font-weight:600;letter-spacing:-.025em;line-height:1.4}
+  :root:not([data-design="classic"]) .sub{margin-top:10px}
+  :root:not([data-design="classic"]) button,
+  :root:not([data-design="classic"]) select{border-radius:3px;background:transparent;padding:8px 14px}
+  :root:not([data-design="classic"]) button.active{background:var(--text);border-color:var(--text);color:var(--bg)}
+  :root:not([data-design="classic"]) .kpis{gap:0;border-block:1px solid var(--line);margin:0 0 32px}
+  :root:not([data-design="classic"]) .kpi{border:0;border-inline-end:1px solid var(--line);padding:22px 26px;border-radius:0}
+  :root:not([data-design="classic"]) .kpi:first-child{padding-inline-start:0}
+  :root:not([data-design="classic"]) .kpi:last-child{border-inline-end:0}
+  :root:not([data-design="classic"]) .kpi .value{font-size:2.15rem;letter-spacing:-.035em;margin:8px 0}
+  :root:not([data-design="classic"]) .card{border:0;padding:0;background:transparent;margin:0}
+  :root:not([data-design="classic"]) .controls{margin-bottom:24px}
+  :root:not([data-design="classic"]) .chart-box{height:440px}
+  :root:not([data-design="classic"]) .disclaimer{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;padding:18px 0 0;margin-top:26px;line-height:1.9}
+  :root:not([data-design="classic"]) footer{margin-top:18px;padding-top:14px}
+  :root[data-design="editorial"] h1:lang(en){font-family:Georgia,"Times New Roman",serif;font-weight:400}
+  :root[data-design="editorial"] header{border-top:3px solid var(--text);padding-top:24px}
+  :root[data-design="report"] header{border-bottom:3px solid var(--text);padding-bottom:24px;margin-bottom:0}
+  :root[data-design="report"] .kpis{background:#f7f9fb;border-top:0}
+  :root[data-design="report"] .kpi:first-child{padding-inline-start:26px}
+  :root[data-design="report"] .controls{background:var(--panel2);padding:12px 16px;border-inline-start:3px solid var(--accent)}
+  :root[data-design="slate"] header{border-bottom:1px solid var(--line);padding-bottom:26px;margin-bottom:0}
+  :root[data-design="slate"] .kpis{border-top:0}
+  :root[data-design="slate"] .kpi .value{font-weight:500}
+  @media(max-width:640px){
+    :root:not([data-design="classic"]) .wrap{padding:24px 18px}
+    :root:not([data-design="classic"]) header{margin-bottom:24px;gap:18px}
+    :root:not([data-design="classic"]) .kpis{grid-template-columns:1fr}
+    :root:not([data-design="classic"]) .kpi,
+    :root:not([data-design="classic"]) .kpi:first-child{padding:16px 0;border-inline-end:0;border-bottom:1px solid var(--line)}
+    :root:not([data-design="classic"]) .kpi:last-child{border-bottom:0}
+    :root:not([data-design="classic"]) .kpi .value{font-size:1.8rem;margin:4px 0}
+    :root:not([data-design="classic"]) .chart-box{height:340px}
+    :root:not([data-design="classic"]) .controls{gap:8px}
+  }
 </style>
 </head>
 <body>
@@ -92,26 +156,26 @@ const REPO_URL = "https://github.com/HusseinKh90/Iraq-parallel-exchange-rate";
 let SERIES = [];
 
 const I18N = {
-  ar:{title:"مرصد سعر الدينار العراقي",
+  ar:{title:"بيانات أسعار الصرف في العراق",
       subtitle:"سعر صرف الدولار في السوق الموازية · تحديث يومي",
       seriesLabel:"السلسلة:", close:"الإغلاق", open:"الافتتاح",
-      kpiLatest:"آخر سعر (المعدل العام)", kpiPremium:"الفارق عن السعر الرسمي",
+      kpiLatest:"آخر سعر", kpiPremium:"الفارق عن السعر الرسمي",
       kpiChange:"التغير خلال المدة", kpiCoverage:"عدد المدن في المعدل",
       per100:"≈ {v} دينار لكل 100$", official:"السعر الرسمي",
       unit:"دينار/دولار", ref:"السعر الرسمي (تقريبي)",
-      disclaimer:"تنبيه: هذه بيانات مُجمّعة من السوق الموازية (مصدرها قناة @dollariraqi) وليست سعراً رسمياً من البنك المركزي، ولا تُعدّ نصيحة مالية.",
-      footer:'المصدر: قناة @dollariraqi · مشروع بيانات مفتوح · <a id="ghLink" href="#">GitHub</a>',
+      disclaimer:"تنبيه: هذه بيانات مُجمّعة من السوق الموازية وليست سعراً رسمياً من البنك المركزي، ولا تُعدّ نصيحة مالية.",
+      footer:'المصدر: مشروع بيانات مفتوح · <a id="ghLink" href="#">GitHub</a>',
       loadErr:"تعذّر تحميل البيانات. عند التشغيل محلياً افتح الصفحة عبر خادم محلي (وليس بفتح الملف مباشرة)، أو انشرها على GitHub Pages.",
       langBtn:"English"},
-  en:{title:"Iraq Dinar Watch",
+  en:{title:"Exchange Rate Data in Iraq",
       subtitle:"Parallel-market USD exchange rate · updated daily",
       seriesLabel:"Series:", close:"Close", open:"Open",
-      kpiLatest:"Latest rate (overall average)", kpiPremium:"Premium over official rate",
+      kpiLatest:"Latest rate", kpiPremium:"Premium over official rate",
       kpiChange:"Change over period", kpiCoverage:"Cities in the average",
       per100:"≈ {v} IQD per 100$", official:"Official rate",
       unit:"IQD/USD", ref:"Official rate (approx.)",
-      disclaimer:"Note: this is aggregated parallel-market data (sourced from the @dollariraqi channel), not an official Central Bank rate, and is not financial advice.",
-      footer:'Source: @dollariraqi channel · open data project · <a id="ghLink" href="#">GitHub</a>',
+      disclaimer:"Note: this is aggregated parallel-market data, not an official Central Bank rate, and is not financial advice.",
+      footer:'Source: open data project · <a id="ghLink" href="#">GitHub</a>',
       loadErr:"Could not load the data. When running locally, open the page through a local server (not by double-clicking the file), or publish it on GitHub Pages.",
       langBtn:"العربية"},
 };
@@ -121,7 +185,7 @@ let BASIS = "close";
 let ROWS = [];
 let chart = null;
 
-const fmt = n => n==null||isNaN(n) ? "—" : Number(n).toLocaleString(LANG==="ar"?"ar-EG":"en-US",{maximumFractionDigits:1});
+const fmt = n => n==null||isNaN(n) ? "—" : Number(n).toLocaleString("en-US",{maximumFractionDigits:1});
 
 function t(k){return I18N[LANG][k];}
 
@@ -142,6 +206,7 @@ function setBasis(b){
 }
 
 function applyStaticText(){
+  document.title = t("title");
   document.getElementById("title").textContent = t("title");
   document.getElementById("subtitle").textContent = t("subtitle");
   document.getElementById("seriesLabel").textContent = t("seriesLabel");
@@ -173,7 +238,9 @@ function colVals(key){
 
 function renderKPIs(){
   const box=document.getElementById("kpis"); box.innerHTML="";
-  const avg = colVals(SERIES[0] ? SERIES[0].key : "baghdad");
+  const key = document.getElementById("seriesSel").value || (SERIES[0] ? SERIES[0].key : "baghdad");
+  const meta = SERIES.find(s=>s.key===key);
+  const avg = colVals(key);
   // latest non-null
   let latest=null,latestDate=null;
   for(let i=ROWS.length-1;i>=0;i--){ if(avg[i]!=null){latest=avg[i];latestDate=ROWS[i].date;break;} }
@@ -182,12 +249,13 @@ function renderKPIs(){
 
   const card=(label,value,note,cls)=>{
     const d=document.createElement("div"); d.className="kpi";
-    d.innerHTML=`<div class="label">${label}</div><div class="value ${cls||''}">${value}</div><div class="note">${note||''}</div>`;
+    const isolatedNote = (note||'').replace(/\d[\d,.%$-]*(?: → \d[\d-]*)?/g, '<bdi dir="ltr">$&</bdi>');
+    d.innerHTML=`<div class="label">${label}</div><div class="value ${cls||''}" dir="ltr">${value}</div><div class="note">${isolatedNote}</div>`;
     box.appendChild(d);
   };
 
   if(latest!=null){
-    card(t("kpiLatest"), fmt(latest)+" ", t("per100").replace("{v}",fmt(latest*100))+" · "+latestDate);
+    card(t("kpiLatest")+(meta ? " · "+(LANG==="ar"?meta.ar:meta.en) : ""), fmt(latest)+" ", t("per100").replace("{v}",fmt(latest*100))+" · "+latestDate);
     const off=officialRateFor(latestDate);
     const prem=(latest-off)/off*100;
     card(t("kpiPremium"), (prem>=0?"+":"")+prem.toFixed(1)+"%",
@@ -211,20 +279,23 @@ function render(){
   const meta=SERIES.find(s=>s.key===key)||SERIES[0];
 
   if(chart) chart.destroy();
+  const css = getComputedStyle(document.documentElement);
+  const color = name => css.getPropertyValue(name).trim();
+  const preview = document.documentElement.dataset.design !== "classic";
   chart=new Chart(document.getElementById("chart"),{
     type:"line",
     data:{labels,datasets:[
-      {label:(LANG==="ar"?meta.ar:meta.en),data,borderColor:"#3ea6ff",backgroundColor:"rgba(62,166,255,.12)",
-       borderWidth:2,pointRadius:data.length>60?0:2,tension:.2,spanGaps:true,fill:true},
-      {label:t("ref"),data:official,borderColor:"#ffb454",borderWidth:1.5,borderDash:[6,5],pointRadius:0,fill:false},
+      {label:(LANG==="ar"?meta.ar:meta.en),data,borderColor:color("--accent"),backgroundColor:"rgba(62,166,255,.12)",
+       borderWidth:2,pointRadius:data.length>60?0:2,tension:0,spanGaps:true,fill:!preview},
+      {label:t("ref"),data:official,borderColor:color("--accent2"),borderWidth:1.5,borderDash:[6,5],pointRadius:0,fill:false},
     ]},
-    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
-      plugins:{legend:{labels:{color:"#e7edf3"}},
+    options:{locale:"en-US",responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+      plugins:{legend:{align:preview?"start":"center",labels:{color:color("--text"),usePointStyle:preview,pointStyle:"line",padding:22}},
         tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${fmt(c.parsed.y)} ${t("unit")}`}}},
       scales:{
-        x:{ticks:{color:"#93a4b3",maxTicksLimit:12},grid:{color:"#22303c"}},
-        y:{ticks:{color:"#93a4b3",callback:v=>fmt(v)},grid:{color:"#22303c"},
-           title:{display:true,text:t("unit"),color:"#93a4b3"}}
+        x:{ticks:{color:color("--muted"),maxTicksLimit:8,maxRotation:0},grid:{color:color("--line"),display:!preview}},
+        y:{ticks:{color:color("--muted"),callback:v=>fmt(v)},grid:{color:color("--line")},border:{display:!preview},
+           title:{display:true,text:t("unit"),color:color("--muted")}}
       }}
   });
 }
