@@ -11,11 +11,15 @@ An open dataset and dashboard tracking the **parallel-market** US-dollar exchang
 
 ## ⚙️ How it Works
 
-This project is fully automated and updates every day at 18:00 (Baghdad Time). The system follows three simple steps:
+The GitHub Actions workflow `.github/workflows/update-data.yml` schedules daily updates at 18:00 Baghdad time (15:00 UTC). Scheduled runs may start late. The workflow also runs on relevant pushes to `main` and can be started manually from **Actions → Update exchange rates and publish dashboard → Run workflow**. It becomes active once the workflow is pushed to GitHub's default branch. The system follows three simple steps:
 
 1. **Scrape:** We gather the latest exchange rate posts directly from three major public Telegram channels: `@dollariraqi`, `@iqborsa`, and `@dollar_price`. No API keys or logins are required.
 2. **Parse:** The system reads the Arabic text in these posts and finds the opening and closing rates for major Iraqi cities (like Baghdad, Erbil, and Basra).
 3. **Consensus:** Because street rates can vary, the system blends the numbers from all three channels. It automatically filters out obvious typos and calculates a reliable daily average for each city. The final results are saved directly to `data/daily_fx.csv`.
+
+The workflow uses the existing extractor without changing its parsing or calculation rules. It verifies that all channel scrapes completed, validates the published CSV and checks that the dataset is no more than five days old before committing files under `data/`. The existing channel health check reports warnings for stale individual channels, low match rates or source disagreement; those warnings do not block otherwise valid updates. These checks do not guarantee every rate is accurate.
+
+After updating the data, the workflow deploys the dashboard directly to GitHub Pages, including when there are no new data changes. This is necessary because commits made using `GITHUB_TOKEN` do not trigger the usual branch-based Pages build. No Telegram credentials or personal access token are required. Repository policies must permit the workflow to write commits to `main` and deploy to the `github-pages` environment. Review failed runs and health warnings in the Actions tab. GitHub may disable scheduled workflows in public repositories after 60 days without repository activity; check that the workflow remains enabled if updates stop.
 
 ## 🚀 How to Run it Locally
 
