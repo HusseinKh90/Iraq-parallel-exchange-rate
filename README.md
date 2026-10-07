@@ -1,4 +1,4 @@
-# Iraq Dinar Watch — parallel-market USD/IQD daily series
+# Parallel-market USD/IQD daily series
 
 **[العربية](README.ar.md)** | English
 
@@ -42,5 +42,5 @@ python iraq_fx_parser.py run
 
 - **Units:** Rates are tracked internally as IQD per 1 USD (e.g., 1507.8). Iraqi street prices are usually quoted per 100 USD (e.g., 150,780). You can multiply by 100 to match the street form.
 - **License:** CC-BY 4.0 — free to use with attribution.
-- **Citation:**
-  > Khalid, H. (2026) *Iraq parallel-market exchange rate: a daily USD/IQD series* [Dataset]. Available at: https://github.com/HusseinKh90/Iraq-parallel-exchange-rate
+- **APA (7th Edition)**
+  > Hussein, H. (2026). *Iraq Parallel Exchange Rate: High-Frequency Telegram Market Dataset* (Version 1.0.0) [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.23209867](https://doi.org/10.5281/zenodo.23209867)

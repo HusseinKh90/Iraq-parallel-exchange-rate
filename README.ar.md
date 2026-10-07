@@ -55,11 +55,11 @@ python iraq_fx_parser.py run
 
 - **الوحدات:** تُسجَّل الأسعار داخليًا بوصفها عدد الدنانير العراقية (IQD) مقابل 1 دولار أمريكي (USD)، مثل 1507.8.
 - **الترخيص:** CC-BY 4.0 — يُسمح بالاستخدام الحر مع ذكر المصدر.
-- **الاستشهاد المرجعي (بالصيغة الإنجليزية):**
+- **APA (7th Edition)**
 
 <div dir="ltr">
 
-> Khalid, H. (2026) *Iraq parallel-market exchange rate: a daily USD/IQD series* [Dataset]. Available at: https://github.com/HusseinKh90/Iraq-parallel-exchange-rate
+> Hussein, H. (2026). *Iraq Parallel Exchange Rate: High-Frequency Telegram Market Dataset* (Version 1.0.0) [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.23209867](https://doi.org/10.5281/zenodo.23209867)
 
 </div>
 
