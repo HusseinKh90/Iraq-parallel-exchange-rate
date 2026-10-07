@@ -9211,4 +9211,5 @@ date,city,n_sources,n_used,consensus_open,consensus_close,min_close,max_close,sp
 2026-10-05,tikrit,1,1,1592.0,1601.5,1601.5,1601.5,0.0,0.0,,dollariraqi:1601.5
 2026-10-06,baghdad_generic,1,1,1598.0,1623.0,1623.0,1623.0,0.0,0.0,,iqborsa:1623
 2026-10-06,tikrit,1,1,1601.0,1601.0,1601.0,1601.0,0.0,0.0,,dollariraqi:1601
-2026-10-07,baghdad_generic,1,1,1682.5,1682.5,1682.5,1682.5,0.0,0.0,,iqborsa:1682.5
+2026-10-07,baghdad_generic,1,1,1682.5,1664.5,1664.5,1664.5,0.0,0.0,,iqborsa:1664.5
+2026-10-07,tikrit,1,1,1676.0,1676.0,1676.0,1676.0,0.0,0.0,,dollariraqi:1676
