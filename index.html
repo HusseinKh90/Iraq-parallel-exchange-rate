@@ -140,10 +140,12 @@ document.documentElement.dataset.design = ["editorial", "report", "slate"].inclu
 // ------------------------------------------------------------------ config
 const CSV_URL = "data/daily_fx.csv";
 // Official CBI rate over time, IQD per 1 USD — a step function, not a constant:
-//   1,450 after the Dec-2020 devaluation, then 1,300 after the Feb-2023 revaluation.
-const OFFICIAL_RATE_BASE = 1450;                    // from the start of the data (Dec 2020)
+//   Dated history supplied by the project owner; each change starts on its from date.
+const OFFICIAL_RATE_BASE = 1190;                    // from 2020-12-01, IQD per 1 USD
 const OFFICIAL_RATE_STEPS = [
-  { from: "2023-02-08", rate: 1300 },               // Feb 2023 revaluation
+  { from: "2020-12-19", rate: 1470 },
+  { from: "2023-02-07", rate: 1320 },
+  { from: "2026-09-07", rate: 1520 },
 ];
 function officialRateFor(date){
   let r = OFFICIAL_RATE_BASE;
