@@ -2,8 +2,8 @@
   {
     "channel": "dollariraqi",
     "mode": "update",
-    "pages": 2,
-    "added": 1,
+    "pages": 1,
+    "added": 0,
     "total": 6438,
     "first_date": "2020-12-01",
     "last_date": "2026-10-07",
@@ -13,8 +13,8 @@
   {
     "channel": "iqborsa",
     "mode": "update",
-    "pages": 2,
-    "added": 3,
+    "pages": 1,
+    "added": 0,
     "total": 9169,
     "first_date": "2023-06-17",
     "last_date": "2026-10-07",
