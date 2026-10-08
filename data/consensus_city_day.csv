@@ -9213,3 +9213,9 @@ date,city,n_sources,n_used,consensus_open,consensus_close,min_close,max_close,sp
 2026-10-06,tikrit,1,1,1601.0,1601.0,1601.0,1601.0,0.0,0.0,,dollariraqi:1601
 2026-10-07,baghdad_generic,1,1,1682.5,1664.5,1664.5,1664.5,0.0,0.0,,iqborsa:1664.5
 2026-10-07,tikrit,1,1,1676.0,1676.0,1676.0,1676.0,0.0,0.0,,dollariraqi:1676
+2026-10-08,baghdad_generic,1,1,1668.0,1657.0,1657.0,1657.0,0.0,0.0,,iqborsa:1657
+2026-10-08,baghdad_harithiya,1,1,1652.5,1652.5,1652.5,1652.5,0.0,0.0,,dollariraqi:1652.5
+2026-10-08,baghdad_kifah,1,1,1652.5,1652.5,1652.5,1652.5,0.0,0.0,,dollariraqi:1652.5
+2026-10-08,baghdad_samawal,1,1,1651.5,1651.5,1651.5,1651.5,0.0,0.0,,dollariraqi:1651.5
+2026-10-08,basra,1,1,1652.0,1652.0,1652.0,1652.0,0.0,0.0,,dollariraqi:1652
+2026-10-08,erbil,1,1,1650.0,1650.0,1650.0,1650.0,0.0,0.0,,dollariraqi:1650
