@@ -1,17 +1,17 @@
 {
   "dollariraqi": {
-    "posts": 6445,
-    "posts_with_readings": 4428,
-    "match_rate": 0.687,
-    "readings": 12583,
+    "posts": 6449,
+    "posts_with_readings": 4431,
+    "match_rate": 0.6871,
+    "readings": 12593,
     "borsa_days": 1431,
     "by_matcher": {
-      "dollariraqi:city_table": 4381,
+      "dollariraqi:city_table": 4384,
       "dollariraqi:direct_scale_2021": 41,
       "dollariraqi:general_market": 6
     },
     "dropped": {
-      "no_match": 940,
+      "no_match": 941,
       "news_link": 485,
       "gold_post": 204,
       "cbi_window": 201,
@@ -20,13 +20,13 @@
     }
   },
   "iqborsa": {
-    "posts": 9180,
-    "posts_with_readings": 4693,
+    "posts": 9187,
+    "posts_with_readings": 4696,
     "match_rate": 0.5112,
-    "readings": 5306,
+    "readings": 5309,
     "borsa_days": 818,
     "by_matcher": {
-      "iqborsa:city_line": 3581,
+      "iqborsa:city_line": 3584,
       "iqborsa:bare_number": 403,
       "iqborsa:dollar_label": 397,
       "iqborsa:bare_buy_sell": 252,
@@ -35,7 +35,7 @@
       "iqborsa:buy_sell_block": 12
     },
     "dropped": {
-      "no_match": 3663,
+      "no_match": 3667,
       "breaking_news": 219,
       "gold_post": 141,
       "mailbag": 126,
@@ -49,24 +49,24 @@
     }
   },
   "dollar_price": {
-    "posts": 5410,
-    "posts_with_readings": 3420,
-    "match_rate": 0.6322,
-    "readings": 8608,
+    "posts": 5415,
+    "posts_with_readings": 3423,
+    "match_rate": 0.6321,
+    "readings": 8611,
     "borsa_days": 2044,
     "by_matcher": {
-      "dollar_price:city_table": 2369,
+      "dollar_price:city_table": 2372,
       "dollar_price:city_buy_sell": 1014,
       "dollar_price:narrative_2017": 27,
       "dollar_price:city_table_truncated": 7,
       "dollar_price:short_city": 3
     },
     "dropped": {
-      "no_match": 807,
+      "no_match": 808,
       "phone_ad": 447,
       "empty": 411,
       "job_ad": 233,
-      "discarded_city": 82,
+      "discarded_city": 83,
       "self_promo": 6,
       "product_ad": 3,
       "campaign": 1
