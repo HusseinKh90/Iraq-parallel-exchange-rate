@@ -1,17 +1,17 @@
 {
   "dollariraqi": {
-    "posts": 6479,
-    "posts_with_readings": 4457,
-    "match_rate": 0.6879,
-    "readings": 12678,
-    "borsa_days": 1439,
+    "posts": 6483,
+    "posts_with_readings": 4460,
+    "match_rate": 0.688,
+    "readings": 12686,
+    "borsa_days": 1440,
     "by_matcher": {
-      "dollariraqi:city_table": 4410,
+      "dollariraqi:city_table": 4413,
       "dollariraqi:direct_scale_2021": 41,
       "dollariraqi:general_market": 6
     },
     "dropped": {
-      "no_match": 945,
+      "no_match": 946,
       "news_link": 485,
       "gold_post": 204,
       "cbi_window": 201,
@@ -20,13 +20,13 @@
     }
   },
   "iqborsa": {
-    "posts": 9233,
-    "posts_with_readings": 4720,
-    "match_rate": 0.5112,
-    "readings": 5333,
-    "borsa_days": 826,
+    "posts": 9234,
+    "posts_with_readings": 4721,
+    "match_rate": 0.5113,
+    "readings": 5334,
+    "borsa_days": 827,
     "by_matcher": {
-      "iqborsa:city_line": 3608,
+      "iqborsa:city_line": 3609,
       "iqborsa:bare_number": 403,
       "iqborsa:dollar_label": 397,
       "iqborsa:bare_buy_sell": 252,
@@ -49,9 +49,9 @@
     }
   },
   "dollar_price": {
-    "posts": 5451,
+    "posts": 5455,
     "posts_with_readings": 3448,
-    "match_rate": 0.6325,
+    "match_rate": 0.6321,
     "readings": 8636,
     "borsa_days": 2051,
     "by_matcher": {
@@ -62,11 +62,11 @@
       "dollar_price:short_city": 3
     },
     "dropped": {
-      "no_match": 813,
+      "no_match": 816,
       "phone_ad": 447,
       "empty": 411,
       "job_ad": 234,
-      "discarded_city": 88,
+      "discarded_city": 89,
       "self_promo": 6,
       "product_ad": 3,
       "campaign": 1
@@ -78,11 +78,11 @@
       "dollariraqi",
       "iqborsa"
     ],
-    "city_day_rows": 9257,
-    "corroborated_rows": 3696,
+    "city_day_rows": 9260,
+    "corroborated_rows": 3697,
     "screened_rows": 15,
     "validation_days": 607,
-    "dataset_days": 1498,
+    "dataset_days": 1499,
     "median_spread_pct_when_multi": 0.071
   }
 }
