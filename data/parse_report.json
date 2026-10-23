@@ -20,9 +20,9 @@
     }
   },
   "iqborsa": {
-    "posts": 9237,
+    "posts": 9239,
     "posts_with_readings": 4723,
-    "match_rate": 0.5113,
+    "match_rate": 0.5112,
     "readings": 5336,
     "borsa_days": 828,
     "by_matcher": {
@@ -35,7 +35,7 @@
       "iqborsa:buy_sell_block": 12
     },
     "dropped": {
-      "no_match": 3687,
+      "no_match": 3689,
       "breaking_news": 219,
       "gold_post": 141,
       "mailbag": 128,
