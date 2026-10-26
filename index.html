@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iraq Parallel Exchange Rate</title>
+<meta name="description" content="Daily parallel-market US dollar rates for Baghdad, Basra and Erbil, compiled from public sources. Open data and code, CC BY 4.0.">
+<link rel="canonical" href="https://husseinkh90.github.io/Iraq-parallel-exchange-rate/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Iraq Parallel Exchange Rate">
+<meta property="og:title" content="Iraq Parallel Exchange Rate: daily USD/IQD street rates">
+<meta property="og:description" content="Daily parallel-market US dollar rates for Baghdad, Basra and Erbil, compiled from public sources. Open data and code, CC BY 4.0.">
+<meta property="og:url" content="https://husseinkh90.github.io/Iraq-parallel-exchange-rate/">
+<meta property="og:image" content="https://husseinkh90.github.io/Iraq-parallel-exchange-rate/social/card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Line chart of the Baghdad dollar rate over the last 12 months, with the latest rate and dataset statistics.">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ar_IQ">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Iraq Parallel Exchange Rate: daily USD/IQD street rates">
+<meta name="twitter:description" content="Daily parallel-market US dollar rates for Baghdad, Basra and Erbil, compiled from public sources. Open data and code, CC BY 4.0.">
+<meta name="twitter:image" content="https://husseinkh90.github.io/Iraq-parallel-exchange-rate/social/card.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "Iraq Parallel Exchange Rate: High-Frequency Telegram Market Dataset", "description": "Daily opening and closing parallel-market US dollar exchange rates in Iraq for Baghdad, Basra and Erbil, compiled from public price bulletins and updated every day.", "url": "https://husseinkh90.github.io/Iraq-parallel-exchange-rate/", "identifier": "https://doi.org/10.5281/zenodo.23209867", "sameAs": "https://doi.org/10.5281/zenodo.23209867", "license": "https://creativecommons.org/licenses/by/4.0/", "isAccessibleForFree": true, "creator": {"@type": "Person", "name": "H. Hussein"}, "version": "1.0.0", "temporalCoverage": "2020-12-01/..", "spatialCoverage": {"@type": "Place", "name": "Iraq"}, "variableMeasured": "Parallel-market exchange rate, Iraqi dinars per US dollar", "keywords": ["Iraq", "exchange rate", "parallel market", "USD/IQD", "dinar", "open data"], "distribution": {"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": "https://husseinkh90.github.io/Iraq-parallel-exchange-rate/data/daily_fx.csv"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600&family=Source+Sans+3:wght@400;600&family=Noto+Naskh+Arabic:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@400;600&display=swap">
+<style>
+/* Layout: one editorial column; full-width pale bands separate sections, as on the Iraqi Data banking page.
+   Charts sit in bordered frames with title, subtitle, direct labels, notes, source line and tabs, as in Our World in Data. */
+:root{
+  --bg:#f8faf9; --panel:#ffffff; --band:#edf2f1; --ink:#1a2528; --muted:#566468; --rule:#d3dcdb; --grid:#e1e8e7;
+  --c-bag:#0b6f6c; --c-bas:#8a3d72; --c-erb:#a2650a; --c-off:#46555a;
+  --accent:#0b6f6c; --accent-soft:#e0efee; --warn:#7a4f00; --warn-bg:#fbf2df; --warn-rule:#e8cf9a;
+  --serif:"Newsreader","Iowan Old Style",Georgia,serif;
+  --sans:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --ar-serif:"Noto Naskh Arabic","Amiri","Traditional Arabic",serif;
+  --ar-sans:"IBM Plex Sans Arabic","Noto Sans Arabic","Segoe UI",Tahoma,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1517; --panel:#141d20; --band:#111a1c; --ink:#e6eded; --muted:#9bacb0; --rule:#2a373b; --grid:#222e32;
+    --c-bag:#4cc0bb; --c-bas:#d58bbd; --c-erb:#e3a64b; --c-off:#aebcc0;
+    --accent:#4cc0bb; --accent-soft:#17302f; --warn:#e8c47a; --warn-bg:#2a2314; --warn-rule:#5b4a22;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1517; --panel:#141d20; --band:#111a1c; --ink:#e6eded; --muted:#9bacb0; --rule:#2a373b; --grid:#222e32;
+  --c-bag:#4cc0bb; --c-bas:#d58bbd; --c-erb:#e3a64b; --c-off:#aebcc0;
+  --accent:#4cc0bb; --accent-soft:#17302f; --warn:#e8c47a; --warn-bg:#2a2314; --warn-rule:#5b4a22;
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55}
+html[lang="ar"] body{font-family:var(--ar-sans);line-height:1.75}
+.wrap{max-width:1080px;margin-inline:auto;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,.serif{font-family:var(--serif);font-weight:600;text-wrap:balance;margin:0}
+html[lang="ar"] h1,html[lang="ar"] h2,html[lang="ar"] h3,html[lang="ar"] .serif{font-family:var(--ar-serif);font-weight:700}
+p{margin:0}
+a{color:var(--accent)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* top bar */
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:14px;border-bottom:1px solid var(--rule)}
+.brand{font-size:.9rem;font-weight:600;letter-spacing:.01em}
+.lang{border:1px solid var(--rule);background:transparent;padding:5px 12px;border-radius:2px;cursor:pointer;font-size:.9rem}
+.lang:hover{border-color:var(--accent)}
+
+/* lede */
+.lede{padding-block:40px 28px}
+.kicker{font-size:.78rem;text-transform:uppercase;letter-spacing:.09em;color:var(--accent);font-weight:600;margin-bottom:10px}
+html[lang="ar"] .kicker{text-transform:none;letter-spacing:0;font-size:.9rem}
+h1{font-size:clamp(1.9rem,1.2rem + 2.6vw,2.9rem);line-height:1.18;font-weight:500;max-width:22ch}
+html[lang="ar"] h1{max-width:26ch;line-height:1.45}
+.dek{font-size:1.12rem;max-width:62ch;margin-top:16px;color:var(--ink)}
+.meta{margin-top:14px;font-size:.88rem;color:var(--muted)}
+
+/* key figures: a ruled strip, not cards */
+.figures{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--rule);margin-bottom:36px}
+.fig{padding:16px 20px;border-inline-end:1px solid var(--rule);min-width:0}
+.fig:first-child{padding-inline-start:0}
+.fig:last-child{border-inline-end:0}
+.fig .l{font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+html[lang="ar"] .fig .l{text-transform:none;letter-spacing:0;font-size:.88rem}
+.fig .v{font-family:var(--serif);font-size:1.9rem;line-height:1.2;margin-top:4px;font-variant-numeric:tabular-nums;direction:ltr;text-align:start;unicode-bidi:isolate}
+html[lang="ar"] .fig .v{font-family:var(--sans);font-weight:600;font-size:1.7rem;text-align:right}
+.fig .v.sm{font-size:1.45rem}
+.fig .n{font-size:.84rem;color:var(--muted);margin-top:2px}
+.tag{display:inline-block;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-rule);padding:0 6px;border-radius:2px;margin-inline-start:6px;vertical-align:middle;font-family:var(--sans)}
+html[lang="ar"] .tag{text-transform:none;letter-spacing:0;font-size:.76rem;font-family:var(--ar-sans)}
+
+/* frames */
+.frame{background:var(--panel);border:1px solid var(--rule);border-radius:2px;margin-bottom:28px}
+.frame-h{padding:20px 22px 6px}
+.frame-h h2,.frame-h h3{font-size:1.4rem;line-height:1.25;font-weight:600}
+.frame-h .sub{color:var(--muted);font-size:.95rem;margin-top:4px}
+.takeaway{padding:8px 22px 0;font-size:.98rem}
+.controls{display:flex;flex-wrap:wrap;gap:10px 18px;justify-content:space-between;align-items:center;padding:12px 22px 4px}
+.chips,.seg{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--rule);background:transparent;padding:4px 11px;border-radius:2px;cursor:pointer;font-size:.92rem}
+.chip i{width:18px;height:0;border-top:3px solid var(--sw);display:inline-block}
+.chip.dash i{border-top-style:dashed;border-top-width:2px}
+.chip[aria-pressed="false"]{color:var(--muted)}
+.chip[aria-pressed="false"] i{opacity:.35}
+.chip:hover,.seg button:hover{border-color:var(--accent)}
+.seg button{border:1px solid var(--rule);background:transparent;padding:4px 11px;cursor:pointer;font-size:.88rem;border-radius:2px;font-variant-numeric:tabular-nums}
+.seg button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+.plot{padding:4px 12px 0}
+.host{position:relative;direction:ltr;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.host svg{display:block;width:100%;height:auto;overflow:visible}
+.host svg text{font-family:var(--sans);font-size:12px;fill:var(--muted);font-variant-numeric:tabular-nums}
+.lbl{position:absolute;font-size:.86rem;font-weight:600;line-height:1.1;white-space:nowrap;pointer-events:none}
+.tip{position:absolute;z-index:3;pointer-events:none;background:var(--panel);border:1px solid var(--rule);box-shadow:0 2px 10px rgba(0,0,0,.14);padding:9px 12px;font-size:.88rem;min-width:170px;border-radius:2px}
+.tip .d{font-weight:600;margin-bottom:5px}
+.tip .r{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.tip .r b{font-weight:600;font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.tip .r span{display:inline-flex;align-items:center;gap:7px}
+.tip .r i{width:10px;height:10px;display:inline-block;background:var(--sw)}
+.tip .f{margin-top:6px;color:var(--muted);font-size:.78rem}
+.hint{margin:4px 22px 0;font-size:.86rem;color:var(--muted)}
+.notes{margin:6px 22px 0;padding:10px 0 0;border-top:1px dotted var(--rule);font-size:.86rem;color:var(--muted)}
+.notes ol{margin:0;padding-inline-start:1.5em}
+.notes li{margin:2px 0}
+.notes li::marker{color:var(--ink);font-weight:600}
+.src{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 24px;padding:12px 22px 14px;font-size:.8rem;color:var(--muted)}
+.tabs{display:flex;border-top:1px solid var(--rule)}
+.tabs button{flex:1;border:0;background:transparent;padding:11px 8px;cursor:pointer;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-1px;border-inline-end:1px solid var(--rule)}
+.tabs button:last-child{border-inline-end:0}
+html[lang="ar"] .tabs button{text-transform:none;letter-spacing:0;font-size:.95rem}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+.tabs button:hover{color:var(--ink)}
+.pane{padding:14px 22px 6px}
+.pane p{max-width:70ch;margin-bottom:10px}
+.pane .links{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 10px}
+.btn{display:inline-block;border:1px solid var(--accent);color:var(--accent);padding:7px 14px;text-decoration:none;border-radius:2px;font-size:.92rem}
+.btn:hover{background:var(--accent-soft)}
+.scroll{overflow-x:auto;max-width:100%}
+.scrolly{max-height:330px;overflow:auto}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th,td{padding:8px 10px;border-bottom:1px solid var(--rule);text-align:start;white-space:nowrap}
+th{font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;position:sticky;top:0;background:var(--panel)}
+html[lang="ar"] th{text-transform:none;letter-spacing:0;font-size:.88rem}
+td.num,th.num{text-align:end}
+td.num{direction:ltr;unicode-bidi:isolate}
+.up{color:var(--ink)}
+.small{font-size:.78rem;color:var(--muted)}
+
+/* bands */
+.band{background:var(--band);border-block:1px solid var(--rule);padding-block:34px 14px;margin-block:12px 36px}
+.band .eyebrow{font-family:var(--serif);color:var(--accent);font-size:1.1rem;font-weight:600;margin-bottom:16px}
+html[lang="ar"] .band .eyebrow{font-family:var(--ar-serif)}
+
+/* markets table */
+.mk td:first-child{font-weight:600}
+.mk .sw{display:inline-block;width:10px;height:10px;margin-inline-end:8px;background:var(--sw)}
+.spark{display:block;direction:ltr}
+
+
+/* about */
+.about{padding-bottom:20px}
+.about h2{font-size:1.4rem;margin-bottom:12px}
+.about ul{margin:0;padding:0;list-style:none;display:grid;gap:12px;max-width:74ch}
+.about li b{font-weight:600}
+.cite{font-size:.9rem;color:var(--muted);border-inline-start:3px solid var(--rule);padding-inline-start:14px;margin-top:6px}
+footer{border-top:1px solid var(--rule);padding-block:20px 36px;font-size:.84rem;color:var(--muted);margin-top:24px}
+
+@media (max-width:760px){
+  body{font-size:16px}
+  .figures{grid-template-columns:1fr 1fr}
+  .fig{padding:14px 14px 14px 0;border-bottom:1px solid var(--rule)}
+  .fig:nth-child(2n){border-inline-end:0;padding-inline-start:14px}
+  .fig:nth-child(3),.fig:nth-child(4){border-bottom:0}
+  .fig:first-child,.fig:nth-child(3){padding-inline-start:0}
+  .fig .v{font-size:1.55rem} .fig .v.sm{font-size:1.2rem}
+  .frame-h,.controls,.takeaway,.src,.pane{padding-inline:14px}
+  .notes,.hint{margin-inline:14px}
+  .plot{padding-inline:2px}
+  .tabs button{padding-inline:2px;letter-spacing:.03em}
+  .lede{padding-block:28px 20px}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+
+/* Additions v1.1: stability and dispersion charts */
+.key{display:flex;flex-wrap:wrap;gap:6px 18px;padding:4px 22px 0;font-size:.86rem;color:var(--muted)}
+.key i{display:inline-block;width:12px;height:12px;margin-inline-end:6px;vertical-align:-1px}
+.key.nk{display:none}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);margin:10px 22px 0;border-block:1px solid var(--rule)}
+.stats>div{padding:10px 14px;border-inline-end:1px solid var(--rule);min-width:0}
+.stats>div:first-child{padding-inline-start:0}
+.stats>div:last-child{border-inline-end:0}
+.stats .l{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+html[lang="ar"] .stats .l{text-transform:none;letter-spacing:0;font-size:.86rem}
+.stats .v{white-space:nowrap;font-family:var(--serif);font-size:1.2rem;line-height:1.3;font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate;text-align:start;margin-top:2px}
+html[lang="ar"] .stats .v{font-family:var(--sans);font-weight:600;font-size:1.02rem;text-align:right}
+.method a{color:var(--accent)}
+@media (max-width:760px){
+  .key{padding-inline:14px}
+  .stats{grid-template-columns:1fr 1fr;margin-inline:14px}
+  .stats>div{padding:9px 10px;border-bottom:1px solid var(--rule)}
+  .stats>div:nth-child(2n){border-inline-end:0}
+  .stats>div:first-child,.stats>div:nth-child(3),.stats>div:nth-child(5){padding-inline-start:0}
+  .stats>div:last-child{border-bottom:0;grid-column:1/-1;border-inline-end:0}
+  .mini th,.mini td{padding-inline:6px}
+  .mini td:last-child,.mini th:last-child{white-space:normal}
+  .key.nk{display:flex}
+}
+/* Additions v1.2: dataset glance, share menu, image download, citation buttons */
+.topr{display:flex;align-items:center;gap:10px}
+.share{position:relative}
+.share summary{list-style:none;cursor:pointer;border:1px solid var(--rule);padding:5px 12px;border-radius:2px;font-size:.9rem}
+.share summary::-webkit-details-marker{display:none}
+.share summary:hover,.share[open] summary{border-color:var(--accent)}
+.share .menu{position:absolute;inset-inline-end:0;top:calc(100% + 6px);z-index:5;background:var(--panel);border:1px solid var(--rule);box-shadow:0 2px 10px rgba(0,0,0,.14);min-width:190px;display:grid}
+.share .menu a,.share .menu button{display:block;text-align:start;padding:9px 14px;border:0;border-bottom:1px solid var(--rule);background:transparent;color:var(--ink);text-decoration:none;font-size:.92rem;cursor:pointer;font-family:inherit}
+.share .menu>:last-child{border-bottom:0}
+.share .menu a:hover,.share .menu button:hover{background:var(--accent-soft)}
+.glance{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 20px;margin-top:16px;font-size:.9rem;color:var(--muted)}
+.glance b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.glance .gl{text-transform:uppercase;letter-spacing:.07em;font-size:.74rem;font-weight:600;color:var(--accent)}
+html[lang="ar"] .glance .gl{text-transform:none;letter-spacing:0;font-size:.88rem}
+.glance a{color:var(--accent)}
+.srcr{display:flex;align-items:center;gap:16px}
+.dl{border:0;background:transparent;padding:0;color:var(--accent);cursor:pointer;font:inherit;font-size:.8rem;text-decoration:underline;text-underline-offset:3px}
+button.btn{background:transparent;cursor:pointer;font-family:inherit}
+.btn.sm{padding:5px 12px;font-size:.86rem}
+.cite-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+/* Additions v1.4: the two sentences of the Download text each keep their own line */
+.pane p.dlp{max-width:none}
+/* Additions v1.5: the methodological notes use the full width of the page */
+.about ul{max-width:none}
+/* Additions v1.6: the headline (both languages) is smaller and stays on one line; only on phones does it wrap */
+html h1,html[lang="ar"] h1{font-size:1.9rem;max-width:none;white-space:nowrap}
+html h1{line-height:1.3}
+html[lang="ar"] h1{line-height:1.5}
+@media (max-width:600px){html h1,html[lang="ar"] h1{font-size:1.3rem;white-space:normal}}
+.dek{max-width:none}
+/* Additions v1.3: the longer column titles of the largest-changes table fit on phones */
+@media (max-width:760px){
+  .mini{table-layout:fixed;width:100%}
+  .mini th:first-child{width:28%}
+  .mini th:nth-child(2){width:33%}
+  .mini td{overflow-wrap:anywhere}
+  .mini th{white-space:normal}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <span class="brand" id="brand"></span>
+    <div class="topr"><details class="share" id="share"></details><button class="lang" id="lang" type="button"></button></div>
+  </div>
+</div>
+
+<main id="app">
+  <div class="wrap" id="lede"></div>
+  <div class="wrap" id="figures"></div>
+  <div class="wrap" id="main"></div>
+  <div class="wrap" id="inverse"></div>
+
+  <section class="band"><div class="wrap">
+    <div class="eyebrow" id="eb1"></div>
+    <div id="premium"></div>
+  </div></section>
+
+  <div class="wrap" id="markets"></div>
+  <div class="wrap" id="dispersion"></div>
+
+  <section class="band"><div class="wrap">
+    <div class="eyebrow" id="eb3"></div>
+    <div id="stability"></div>
+  </div></section>
+
+
+  <div class="wrap about" id="about"></div>
+</main>
+<footer><div class="wrap" id="foot"></div></footer>
+
+<script>
+(async function(){
+'use strict';
+const EMBEDDED = /*DATA*/null, EMBEDDED_STATS = /*STATS*/null;
+function parseCSV(text){
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++){
+    const c = text[i];
+    if (q){ if (c === '"'){ if (text[i + 1] === '"'){ cell += '"'; i++; } else q = false; } else cell += c; }
+    else if (c === '"') q = true;
+    else if (c === ',') { row.push(cell); cell = ''; }
+    else if (c === '\n') { row.push(cell); rows.push(row); row = []; cell = ''; }
+    else if (c !== '\r') cell += c;
+  }
+  if (cell !== '' || row.length){ row.push(cell); rows.push(row); }
+  return rows;
+}
+async function loadData(){
+  const res = await fetch('data/daily_fx.csv', {cache:'no-cache'}); if (!res.ok) throw new Error('HTTP ' + res.status);
+  const rows = parseCSV(await res.text()), head = rows[0], ix = k => head.indexOf(k);
+  const num = v => (v === '' || v == null) ? null : Math.round(parseFloat(v) * 100) / 100;
+  const out = {d:[], b:[], s:[], e:[]};
+  for (let i = 1; i < rows.length; i++){ const r = rows[i]; if (!r[0]) continue; out.d.push(r[0]); out.b.push(num(r[ix('baghdad_close')])); out.s.push(num(r[ix('basra_close')])); out.e.push(num(r[ix('erbil_close')])); }
+  return out;
+}
+let DATA, STATS = EMBEDDED_STATS;
+try { DATA = EMBEDDED || await loadData(); if (!DATA.d.length) throw new Error('empty'); }
+catch (err) {
+  document.getElementById('lede').innerHTML = '<div class="lede"><p class="dek" dir="auto">تعذّر تحميل البيانات. في حال فتح الملف مباشرةً، يُرجى استخدام خادم ويب محلي أو الموقع المنشور.</p><p class="dek">Could not load the data. If you opened this file directly, use a local web server or the published site.</p></div>';
+  return;
+}
+if (!STATS){ try { const r = await fetch('data/dataset_stats.json', {cache:'no-cache'}); if (r.ok) STATS = await r.json(); } catch (err) {} }
+const initialLang = () => { try { const q = new URLSearchParams(location.search).get('lang'); if (q === 'ar' || q === 'en') return q; const v = localStorage.getItem('fxlang'); if (v === 'ar' || v === 'en') return v; } catch (err) {} return /^ar/i.test(navigator.language || '') ? 'ar' : 'en'; };
+const SITE_URL = 'https://husseinkh90.github.io/Iraq-parallel-exchange-rate/';
+const CITE_APA = 'Hussein, H. (2026). Iraq Parallel Exchange Rate: High-Frequency Telegram Market Dataset (Version 1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23209867';
+const CITE_BIB = '@dataset{hussein2026iraqfx,\n  author    = {Hussein, H.},\n  title     = {Iraq Parallel Exchange Rate: High-Frequency Telegram Market Dataset},\n  year      = {2026},\n  version   = {1.0.0},\n  publisher = {Zenodo},\n  doi       = {10.5281/zenodo.23209867},\n  url       = {https://doi.org/10.5281/zenodo.23209867}\n}';
+const LIGHT = {"--bg": "#f8faf9", "--panel": "#ffffff", "--ink": "#1a2528", "--muted": "#566468", "--rule": "#d3dcdb", "--grid": "#e1e8e7", "--c-bag": "#0b6f6c", "--c-bas": "#8a3d72", "--c-erb": "#a2650a", "--c-off": "#46555a", "--accent": "#0b6f6c", "--accent-soft": "#e0efee", "--warn": "#7a4f00", "--warn-bg": "#fbf2df", "--warn-rule": "#e8cf9a"};
+const N = DATA.d.length, DAY = 86400000;
+const T = DATA.d.map(s => Date.parse(s + 'T00:00:00Z'));
+
+/* Official rate used for the comparison. History is the project owner's record. */
+const OFFICIAL_BASE = 1190;
+const OFFICIAL_STEPS = [
+  {from:'2020-12-19', rate:1470},
+  {from:'2023-02-07', rate:1320},
+  {from:'2026-10-07', rate:1520}
+];
+const officialFor = ds => { let r = OFFICIAL_BASE; for (const s of OFFICIAL_STEPS) if (ds >= s.from) r = s.rate; return r; };
+const OFF = DATA.d.map(officialFor);
+const PREM = DATA.b.map((v,i) => v == null ? null : (v - OFF[i]) / OFF[i] * 100);
+const VAL = {b:DATA.b, s:DATA.s, e:DATA.e, o:OFF};
+const EVENTS = [
+  {id:1, date:'2020-12-19', from:1190, to:1470},
+  {id:2, date:'2023-02-07', from:1470, to:1320},
+  {id:3, date:'2026-10-07', from:1320, to:1520}
+];
+const CSV_URL = 'https://husseinkh90.github.io/Iraq-parallel-exchange-rate/data/daily_fx.csv';
+const REF = {
+  ibr:'<a href="https://doi.org/10.1016/j.jbankfin.2013.02.019" target="_blank" rel="noopener">Ibragimov et al., 2013</a>',
+  and:'<a href="https://doi.org/10.1198/016214501750332965" target="_blank" rel="noopener">Andersen et al., 2001</a>',
+  par:'<a href="https://doi.org/10.2139/ssrn.450680" target="_blank" rel="noopener">Parsley et al., 2003</a>',
+  parN:'<a href="https://doi.org/10.2139/ssrn.450680" target="_blank" rel="noopener">Parsley and Wei (2003)</a>',
+  ibrN:'<a href="https://doi.org/10.1016/j.jbankfin.2013.02.019" target="_blank" rel="noopener">Ibragimov et al. (2013)</a>'
+};
+const REPO_URL = 'https://github.com/HusseinKh90/Iraq-parallel-exchange-rate';
+const DOI_URL = 'https://doi.org/10.5281/zenodo.23209867';
+
+const nf = (v,d=1) => v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const sgn = (v,d=1) => (v > 0.0499 ? '+' : v < -0.0499 ? '−' : '') + nf(Math.abs(v),d);
+const lastIdx = arr => { for (let i = N-1; i >= 0; i--) if (arr[i] != null) return i; return -1; };
+const idxAgo = (arr, days, from) => { const tgt = T[from] - days*DAY; for (let i = from; i >= 0; i--) if (T[i] <= tgt && arr[i] != null) return i; return -1; };
+const prevIdx = (arr, from) => { for (let i = from-1; i >= 0; i--) if (arr[i] != null) return i; return -1; };
+
+const SERIES = {
+  b:{name:'bag', color:'var(--c-bag)', w:2.6},
+  s:{name:'bas', color:'var(--c-bas)', w:1.9},
+  e:{name:'erb', color:'var(--c-erb)', w:1.9},
+  o:{name:'off', color:'var(--c-off)', w:1.7, dash:'6 4', step:true}
+};
+
+/* ---------------------------------------------------------------- i18n */
+/* Arabic agreement for a counted noun: 3-10 take the plural, 11-99 the singular accusative, others the singular. */
+const arCnt = (n, w) => { n = Math.round(n); const t = n.toLocaleString('en-US'), r = n % 100; if (n === 1) return w.one; if (n === 2) return w.two; if (r >= 3 && r <= 10) return t + ' ' + w.pl; if (r >= 11) return t + ' ' + w.acc; return t + ' ' + w.sg; };
+const AR_DAY = {one:'يوم واحد', two:'يومان', pl:'أيام', acc:'يومًا', sg:'يوم'};
+const AR_OBS = {one:'مشاهدة واحدة', two:'مشاهدتان', pl:'مشاهدات', acc:'مشاهدةً', sg:'مشاهدة'};
+const arNum = x => Number(String(x).replace(/,/g, ''));
+const I18N = {
+en:{
+  brand:'Iraq Parallel Exchange Rate', lang:'العربية',
+  kicker:'Open data · updated daily',
+  h1:v => `The US dollar exchange rate is ${v} dinars in Baghdad’s parallel market`,
+  dek:(m,y) => { const same = (m>=0) === (y>=0); return `The rate has ${m>=0?'increased':'decreased'} by ${nf(Math.abs(m))}% over the past 30 days ${same?'and':'but has'} ${same?'':(y>=0?'increased by ':'decreased by ')}${nf(Math.abs(y))}% over the past 12 months.`; },
+  meta:(d,pre) => `Data to ${d}${pre?' (day in progress)':''} · refreshed daily at 18:00 Baghdad time · CC BY 4.0`,
+  f1:'Baghdad, latest', f1u:'dinars per $1', f1n:(d,pre) => d + (pre?' · day in progress':''),
+  f2:'Change in 30 days', f2n:(v,d) => `from ${v} on ${d}`,
+  f3:'Last 12 months', f3n:'low to high, daily close',
+  f4:'Above the official rate', f4n:v => `official rate used: ${v}`,
+  mainT:'Dollar Exchange Rate Against the Iraqi Dinar',
+  mainS:'Dinars per US dollar, daily close.',
+  names:{b:'Baghdad', s:'Basra', e:'Erbil', o:'Official rate'}, short:{b:'Baghdad', s:'Basra', e:'Erbil', o:'Official'},
+  ranges:{'1M':'1M','3M':'3M','6M':'6M','1Y':'1Y','5Y':'5Y','ALL':'All'},
+  tabs:{chart:'Chart', table:'Table', download:'Download'},
+  notesH:'Notes', noq:'— no quote that day', hint:x => `Basra and Erbil typically remain within ${nf(x,1)}% of Baghdad (median since 2024), so their lines nearly overlap on this scale. Select them above to compare.`,
+  ev:e => `${e.dd}: the official rate ${e.to>e.from?'increased':'decreased'} from ${nf(e.from,e.dec||0)} to ${nf(e.to,e.dec||0)}.`,
+  src:'Source: Iraq Parallel Exchange Rate project. Official rate: Central Bank of Iraq.',
+  lic:'CC BY 4.0',
+  th:{date:'Date', b:'Baghdad', s:'Basra', e:'Erbil', o:'Official'},
+  tblNote:'Most recent 25 days. Blank cells mean no quote that day.',
+  dlFull:'Full dataset (CSV)', dlRepo:'Data and code on GitHub', dlCite:'Cite this dataset (DOI)',
+  dlP:'Free to use with attribution under CC BY 4.0.<br>The CSV contains one row per day with opening and closing rates for Baghdad, Basra and Erbil.',
+  eb1:'Premium Rate',
+  premT:'The difference between parallel rate and official exchange rate',
+  premS:'Percent difference, Baghdad daily close.',
+  premTake:(now,mn,mx) => `Now ${sgn(now)}%. Since December 2020 the gap has ranged from ${sgn(mn)}% to ${sgn(mx)}%.`,
+  mkT:'Markets at a glance', mkS:'Latest close and change. Dinars per US dollar.',
+  mkTh:{m:'Market', c:'Close', d:'1 day', m1:'1 month', y1:'12 months', sp:'Last 90 days'},
+  mkNote:'A date in brackets means the market had no quote on the latest day.',
+  abT:'Methodological Considerations and Data Specifications',
+  ab:(miss) => [
+    ['Units of Measurement.', 'Exchange rates are denominated in Iraqi dinars (IQD) per single United States dollar (USD). To align with informal market conventions, which typically quote prices per 100 USD, a multiplier of 100 must be applied to the data.'],
+    ['Temporal Coverage.', `Data collection encompasses the active trading period from Sunday through Thursday. Observations are systematically absent on Fridays and Saturdays, alongside an additional ${miss} omitted days since December 2020. These temporal gaps are preserved as null values without the application of data imputation procedures.`],
+    ['Methodological Overview.', 'Trading activity is restricted to the Sunday through Thursday window. The designated markets encompass specific municipalities and Baghdad sub-markets, as cataloged in the open consensus file. Source disparity is quantified as the spread between the maximum and minimum quotations for a specific market on a concurrent day, aggregated as a median exclusively across days with two or more reporting channels.'],
+    ['Baghdad Market Specifications.', 'The Baghdad jurisdiction comprises multiple distinct wholesale sub-markets. The specific source underlying each daily observation is explicitly identified within the baghdad_market dataset variable. The majority of these observations are derived from the Kifah market, while the remainder represent a generalized Baghdad market quotation.'],
+    ['Data Provenance.', 'This dataset is an aggregation of parallel-market quotations compiled from publicly accessible channels. It does not represent the official exchange rate mandated by the Central Bank of Iraq, nor should the information be interpreted as financial advice.']
+  ],
+  cite:'Hussein, H. (2026). Iraq Parallel Exchange Rate: High-Frequency Telegram Market Dataset (Version 1.0.0) [Data set]. Zenodo.',
+  foot:'Open data project · CC BY 4.0',
+  eb3:'Volatility and Distribution Analysis', r3Y:'3Y',
+  srcB:'Source: Iraq Parallel Exchange Rate project.',
+  volT:'Daily Rate Volatility',
+  volS:'Baghdad: 30-day rolling dispersion of daily percentage changes.',
+  volSd:'Standard Deviation', volMd:'Median Fluctuation', volSdT:'Standard Deviation', volMdT:'Median Fluctuation',
+  volFoot:'Previous 30 quoted days up to this date',
+  volTake:(a,b,pk) => `Recent data indicates a median daily fluctuation of ${b}%, with a standard deviation of ${a}%. Volatility peaked on ${pk.dl} (standard deviation: ${pk.v}%), encompassing a maximum single-day ${pk.up ? 'increase' : 'decline'} of ${pk.abs} on ${pk.bdl}.`,
+  volMethod:() => `<b>Method.</b> Daily change = <bdi dir="ltr">100 × ln(P<sub>t</sub> ÷ P<sub>t−1</sub>)</bdi>, where P is the Baghdad close on a quoted day and t−1 is the previous quoted day. Each point uses the previous 30 changes (about six weeks of Sunday-to-Thursday quotes), so the lines start after 30 changes. Not annualised: the changes are heavy-tailed and quotes are not evenly spaced. With intraday prices a realized-volatility measure would be possible <bdi dir="ltr">(${REF.and})</bdi>; only daily closes are available here.`,
+  distT:'Distribution of Daily Exchange Rate Fluctuations',
+  distS:'Baghdad: Proportional distribution of quoted days categorized by the magnitude of daily percentage changes.',
+  kBars:'Share of days', kBand:'Middle 90% of days', kMed:'Median', kTail:'Beyond ±1.5% (grouped)', xTitle:'Daily change',
+  stMed:'Median Fluctuation', stHalf:'Interquartile Range (Central 50%)', stNinety:'Central 90% Distribution', stZero:'Zero-Variance Observations', stN:'Total Sample Size',
+  tipBelow:(c,p) => `Below −1.5%: ${c} days (${p}% of days)`, tipAbove:(c,p) => `≥1.5% and above: ${c} days (${p}% of days)`,
+  tipBin:(a,b,c,p) => `${a} to ${b}: ${c} days (${p}% of days)`,
+  largestH:'Maximum Daily Rate Fluctuations During the Observation Period', lth:{d:'Date', c:'Percentage Change', r:'Prior Close to Current Close'},
+  distTake:(m,k,n,p) => `In 50% of the observations, the daily rate fluctuation does not exceed ${m}%. Significant volatility, defined as directional shifts exceeding ±1.5%, occurred in ${p}% of the sample (${k} out of ${n} observations).`,
+  distMethod:(n,a,b) => `The histogram illustrates the proportional distribution of daily changes, binned into 0.1-percentage-point intervals, with outliers exceeding ±1.5% aggregated at the distribution tails. The reported percentiles are derived from empirical data rather than a fitted normal distribution. As established by ${REF.ibrN}, emerging-market exchange rates frequently exhibit heavy-tailed distributions; therefore, relying exclusively on mean and standard deviation metrics would yield misleading interpretations. The sample comprises ${n} daily observations recorded from ${a}, to ${b}.`,
+  invT:'Dinar Exchange Rate Against the US Dollar',
+  invS:'US dollars per dinar, daily close.',
+  invTake:(d,v,x) => `Latest close (${d}): ${v} US dollars per dinar, equivalent to ${x} dinars per US dollar.`,
+  invMethod:() => `The rate is calculated as the reciprocal of the dollar rate shown above, <bdi dir="ltr">1 ÷ P</bdi>, where P is the daily close in dinars per US dollar. A rise in the dollar rate therefore appears as a fall in the dinar rate.`,
+  invLabel:'Line chart of the daily dinar rate against the US dollar, the reciprocal of the dollar rate. Left and right arrow keys move along the chart.',
+  histLabel:'Histogram of daily percentage changes in the Baghdad rate. The statistics and the table of largest changes below give the same information as text.',
+  dispT:'Inter-City Price Dispersion',
+  dispS:'Maximum-to-Minimum Differential (Baghdad, Basra, Erbil): Expressed as a Percentage of the Minimum (30-Day Median, Central 90% Distribution).',
+  dispMed:'Median gap', dispBand:'Middle 90%', dispMedT:'Median gap (30 days)', dispBandT:'Middle 90% of days', dispDay:'Gap on this day',
+  dispFoot:'Previous 30 days with a quote in all three cities',
+  dispTake:(m,q) => `Since the beginning of 2024, the median differential has been ${m}%, remaining below ${q}% on 95% of observed days.`,
+  dispMethod:n => `The differential is calculated as <bdi dir="ltr">100 × (maximum − minimum) ÷ minimum</bdi> from daily closing rates, using only days on which all three cities report a quotation (${n} observations). Each plotted point is the median of the preceding 30 such observations, and the shaded band spans their 5th to 95th percentiles. As proposed by ${REF.parN}, the dispersion of prices across locations serves as an indicator of market integration. The figures reflect quoted prices rather than executed transactions; the differential may therefore also capture differences in the timing of channel postings and in the Baghdad sub-market quoted.`,
+  gl:'Dataset at a glance', glObs:(d, n) => `daily observations since ${d}`, glCov:'of trading days covered', glMk:n => 'markets in the open data', glGap:'median gap between sources', glHow:'Read More',
+  glTipCov:'Trading days are Sunday to Thursday.', glTipMk:'Cities and Baghdad sub-markets in the open consensus file.', glTipGap:'Spread between the highest and lowest channel quoting the same market on the same day (median over days with two or more channels).',
+  share:'Share', copyLink:'Copy link', copied:'Copied', shareText:'Iraq Parallel Exchange Rate: daily USD/IQD street rates for Baghdad, Basra and Erbil',
+  dlImg:'Download image', citeApa:'Copy citation (APA)', citeBib:'Copy BibTeX', dataTo:'Data to',
+  chartLabel:'Line chart of the daily dollar rate. Use the Table tab for the same numbers as text. Left and right arrow keys move along the chart.',
+  dayLabel:'daily close', locale:'en-GB'
+},
+ar:{
+  brand:'سعر الصرف الموازي في العراق', lang:'English',
+  kicker:'بيانات مفتوحة · تُحدَّث يوميًا',
+  h1:v => `سعر صرف الدولار الأمريكي ${v} دينارًا في السوق الموازي في بغداد`,
+  dek:(m,y) => { const same = (m>=0) === (y>=0); return `${m>=0?'ارتفع':'انخفض'} سعر الصرف بنسبة ${nf(Math.abs(m))}% خلال آخر 30 يومًا${same?' وبنسبة':'، إلا أنه '+(y>=0?'ارتفع':'انخفض')+' بنسبة'} ${nf(Math.abs(y))}% خلال آخر 12 شهرًا.`; },
+  meta:(d,pre) => `البيانات حتى ${d}${pre?' (بيانات اليوم غير مكتملة)':''} · تُحدَّث يوميًا في الساعة 18:00 بتوقيت بغداد · CC BY 4.0`,
+  f1:'بغداد: أحدث سعر', f1u:'دينار لكل دولار', f1n:(d,pre) => d + (pre?' · بيانات اليوم غير مكتملة':''),
+  f2:'التغيّر خلال 30 يومًا', f2n:(v,d) => `من ${v} بتاريخ ${d}`,
+  f3:'آخر 12 شهرًا', f3n:'من أدنى إلى أعلى إغلاق يومي',
+  f4:'الزيادة على السعر الرسمي', f4n:v => `السعر الرسمي المعتمد: ${v}`,
+  mainT:'سعر صرف الدولار الأمريكي مقابل الدينار العراقي',
+  mainS:'دينار لكل دولار أمريكي، سعر الإغلاق اليومي.',
+  names:{b:'بغداد', s:'البصرة', e:'أربيل', o:'السعر الرسمي'}, short:{b:'بغداد', s:'البصرة', e:'أربيل', o:'الرسمي'},
+  ranges:{'1M':'شهر','3M':'3 أشهر','6M':'6 أشهر','1Y':'سنة','5Y':'5 سنوات','ALL':'الكل'},
+  tabs:{chart:'الرسم البياني', table:'الجدول', download:'التنزيل'},
+  notesH:'ملاحظات', noq:'— لا يتوفر سعر في ذلك اليوم', hint:x => `يبقى سعرا البصرة وأربيل عادةً ضمن ${nf(x,1)}% من سعر بغداد (الوسيط منذ عام 2024)، ولذلك يكاد خطاهما يتطابقان على هذا المقياس. حدِّدهما أعلاه للمقارنة.`,
+  ev:e => `${e.dd}: ${e.to>e.from?'ارتفع':'انخفض'} السعر الرسمي من ${nf(e.from,e.dec||0)} إلى ${nf(e.to,e.dec||0)}.`,
+  src:'المصدر: مشروع سعر الصرف الموازي في العراق. السعر الرسمي: البنك المركزي العراقي.',
+  lic:'CC BY 4.0',
+  th:{date:'التاريخ', b:'بغداد', s:'البصرة', e:'أربيل', o:'الرسمي'},
+  tblNote:'آخر 25 يومًا. تشير الخلية الفارغة إلى عدم توفر سعر في ذلك اليوم.',
+  dlFull:'البيانات الكاملة (CSV)', dlRepo:'البيانات والشفرة البرمجية على GitHub', dlCite:'الاستشهاد بهذه البيانات (DOI)',
+  dlP:'متاحة للاستخدام مع ذكر المصدر بموجب رخصة CC BY 4.0.<br>يتضمن ملف CSV صفًّا واحدًا لكل يوم، يضم أسعار الافتتاح والإغلاق لبغداد والبصرة وأربيل.',
+  eb1:'علاوة السوق الموازي',
+  premT:'الفرق بين سعر الصرف الموازي وسعر الصرف الرسمي',
+  premS:'الفرق بالنسبة المئوية، سعر الإغلاق اليومي في بغداد.',
+  premTake:(now,mn,mx) => `الفرق الحالي ${sgn(now)}%. وقد تراوح الفرق منذ كانون الأول 2020 بين ${sgn(mn)}% و${sgn(mx)}%.`,
+  mkT:'نظرة عامة على الأسواق', mkS:'آخر إغلاق والتغيّر. دينار لكل دولار أمريكي.',
+  mkTh:{m:'السوق', c:'الإغلاق', d:'يوم', m1:'شهر', y1:'12 شهرًا', sp:'آخر 90 يومًا'},
+  mkNote:'يشير التاريخ الوارد بين قوسين إلى عدم توفر سعر للسوق في آخر يوم.',
+  abT:'الاعتبارات المنهجية ومواصفات البيانات',
+  ab:(miss) => [
+    ['وحدات القياس.', 'تُقدَّر أسعار الصرف بالدينار العراقي (IQD) لكل دولار أمريكي (USD) واحد. ولمواءمتها مع أعراف السوق غير الرسمية، التي تُسعِّر عادةً لكل 100 دولار أمريكي، يلزم ضرب البيانات في 100.'],
+    ['التغطية الزمنية.', `يشمل جمع البيانات فترة التداول الفعلية من الأحد إلى الخميس. وتغيب المشاهدات بصورة منتظمة يومي الجمعة والسبت، فضلًا عن غياب ${arCnt(miss, AR_DAY)} إضافيًا منذ كانون الأول 2020. وتُحفَظ هذه الفجوات الزمنية قيمًا فارغة (null) دون اللجوء إلى أي إجراءات للاستكمال الإحصائي للقيم المفقودة.`],
+    ['نظرة منهجية عامة.', 'يقتصر النشاط التداولي على الفترة من الأحد إلى الخميس. وتشمل الأسواق المعتمدة مدنًا محددة وأسواق بغداد الفرعية، وفق ما هو مدرج في ملف التوافق المفتوح. ويُقاس التباين بين المصادر بوصفه المدى بين أعلى سعر وأدنى سعر معلنين لسوق معيّن في اليوم نفسه، ويُجمَّع بحساب الوسيط على الأيام التي تنشر فيها قناتان أو أكثر فقط.'],
+    ['مواصفات سوق بغداد.', 'تضم بغداد عدة أسواق جملة فرعية متمايزة. ويُحدَّد المصدر الذي تستند إليه كل مشاهدة يومية صراحةً في المتغير baghdad_market ضمن البيانات. وتُستمد غالبية هذه المشاهدات من سوق الكفاح، بينما تمثل البقية سعرًا عامًا لسوق بغداد.'],
+    ['مصدر البيانات.', 'هذه المجموعة تجميع لأسعار السوق الموازي المستقاة من قنوات متاحة للعموم. وهي لا تمثّل سعر الصرف الرسمي المقرَّر من البنك المركزي العراقي، ولا ينبغي تفسير المعلومات الواردة فيها بوصفها نصيحة مالية.']
+  ],
+  cite:'Hussein, H. (2026). Iraq Parallel Exchange Rate: High-Frequency Telegram Market Dataset (Version 1.0.0) [Data set]. Zenodo.',
+  foot:'مشروع بيانات مفتوحة · CC BY 4.0',
+  eb3:'تحليل التقلب والتوزيع', r3Y:'3 سنوات',
+  srcB:'المصدر: مشروع سعر الصرف الموازي في العراق.',
+  volT:'التقلب اليومي لسعر الصرف',
+  volS:'بغداد: التشتت المتحرك لمدة 30 يومًا للتغيّرات اليومية بالنسبة المئوية.',
+  volSd:'الانحراف المعياري', volMd:'وسيط التقلب', volSdT:'الانحراف المعياري', volMdT:'وسيط التقلب',
+  volFoot:'آخر 30 يومًا مسعَّرًا حتى هذا التاريخ',
+  volTake:(a,b,pk) => `تشير البيانات الأخيرة إلى وسيط تقلب يومي قدره ${b}%، بانحراف معياري قدره ${a}%. وبلغ التقلب ذروته في ${pk.dl} (الانحراف المعياري: ${pk.v}%)، متضمنًا أكبر ${pk.up ? 'ارتفاع' : 'انخفاض'} يومي منفرد بنسبة ${pk.abs} في ${pk.bdl}.`,
+  volMethod:() => `<b>الطريقة.</b> التغيّر اليومي = <bdi dir="ltr">100 × ln(P<sub>t</sub> ÷ P<sub>t−1</sub>)</bdi>، حيث P سعر إغلاق بغداد في يوم مسعَّر، وt−1 اليوم المسعَّر السابق. وتستند كل نقطة إلى التغيّرات الثلاثين السابقة (نحو ستة أسابيع من أسعار الأحد إلى الخميس)، ولذلك تبدأ الخطوط بعد 30 تغيّرًا. ولا يُحوَّل إلى معدل سنوي لأن التغيّرات ثقيلة الذيل والأسعار غير منتظمة التباعد الزمني. ولو توافرت أسعار خلال اليوم الواحد لأمكن استخدام مقياس التقلب المحقَّق <bdi dir="ltr">(${REF.and})</bdi>، إلا أن المتاح هنا أسعار الإغلاق اليومية فقط.`,
+  distT:'توزيع التقلبات اليومية في سعر الصرف',
+  distS:'بغداد: التوزيع النسبي للأيام المسعَّرة مصنَّفةً بحسب مقدار التغيّرات اليومية بالنسبة المئوية.',
+  kBars:'نسبة الأيام', kBand:'النطاق المركزي (90%)', kMed:'الوسيط', kTail:'ما يتجاوز ±1.5% (مجمَّع)', xTitle:'التغيّر اليومي',
+  stMed:'وسيط التقلب', stHalf:'المدى الربيعي (النطاق المركزي 50%)', stNinety:'النطاق المركزي (90%)', stZero:'المشاهدات ذات التباين الصفري', stN:'حجم العيّنة الإجمالي',
+  tipBelow:(c,p) => `أقل من −1.5%: ${arCnt(c, AR_DAY)} (${p}% من الأيام)`, tipAbove:(c,p) => `1.5% فأكثر: ${arCnt(c, AR_DAY)} (${p}% من الأيام)`,
+  tipBin:(a,b,c,p) => `${a} إلى ${b}: ${arCnt(c, AR_DAY)} (${p}% من الأيام)`,
+  largestH:'أكبر التقلبات اليومية في سعر الصرف خلال فترة الرصد', lth:{d:'التاريخ', c:'نسبة التغيّر', r:'من الإغلاق السابق إلى الإغلاق الحالي'},
+  distTake:(m,k,n,p) => `في 50% من المشاهدات لا يتجاوز التقلب اليومي في السعر ${m}%. وسُجِّل تقلب كبير، يُعرَّف بأنه تغيّر اتجاهي يتجاوز ±1.5%، في ${p}% من العيّنة (${k} من أصل ${arCnt(arNum(n), AR_OBS)}).`,
+  distMethod:(n,a,b) => `يبيّن المدرّج التكراري التوزيع النسبي للتغيّرات اليومية، مصنَّفةً في فئات طول كل منها 0.1 نقطة مئوية، مع تجميع القيم المتطرفة التي تتجاوز ±1.5% عند طرفي التوزيع. وتُشتق المئينات المعروضة من البيانات التجريبية لا من توزيع طبيعي مُلائَم. وكما بيّن <bdi dir="ltr">${REF.ibrN}</bdi>، كثيرًا ما تُظهر أسعار الصرف في الأسواق الناشئة توزيعات ثقيلة الذيل؛ ومن ثمّ فإن الاقتصار على مقياسي المتوسط والانحراف المعياري يؤدي إلى استنتاجات مضلِّلة. وتتألف العيّنة من ${arCnt(arNum(n), AR_OBS)} يومية مسجَّلة من ${a} إلى ${b}.`,
+  invT:'سعر صرف الدينار العراقي مقابل الدولار الأمريكي',
+  invS:'دولار أمريكي لكل دينار، سعر الإغلاق اليومي.',
+  invTake:(d,v,x) => `آخر إغلاق (${d}): ${v} دولار أمريكي لكل دينار، أي ما يعادل ${x} دينار لكل دولار أمريكي.`,
+  invMethod:() => `يُحتسب السعر بوصفه مقلوب سعر الدولار المعروض أعلاه، أي <bdi dir="ltr">1 ÷ P</bdi>، حيث P سعر الإغلاق اليومي بالدينار لكل دولار أمريكي. ولذلك يظهر ارتفاع سعر الدولار انخفاضًا في سعر الدينار.`,
+  invLabel:'رسم بياني خطي لسعر الدينار اليومي مقابل الدولار الأمريكي، وهو مقلوب سعر الدولار. ويحرّك مفتاحا السهم الأيمن والأيسر المؤشر على امتداد الرسم.',
+  histLabel:'مدرّج تكراري للتغيّرات اليومية بالنسبة المئوية في سعر بغداد. وتتيح الإحصاءات الواردة أدناه وجدول أكبر التقلبات المعلومات نفسها بصيغة نصية.',
+  dispT:'تشتت الأسعار بين المدن',
+  dispS:'الفارق بين الحد الأقصى والحد الأدنى (بغداد والبصرة وأربيل)، مُعبَّرًا عنه بنسبة مئوية من الحد الأدنى (الوسيط لمدة 30 يومًا، النطاق المركزي 90%).',
+  dispMed:'الفارق الوسيط', dispBand:'النطاق المركزي (90%)', dispMedT:'الفارق الوسيط (30 يومًا)', dispBandT:'النطاق المركزي (90%)', dispDay:'فارق هذا اليوم',
+  dispFoot:'آخر 30 يومًا توافر فيها سعر للمدن الثلاث',
+  dispTake:(m,q) => `منذ مطلع عام 2024، بلغ الفارق الوسيط ${m}%، وظل دون ${q}% في 95% من الأيام المرصودة.`,
+  dispMethod:n => `يُحتسب الفارق بالصيغة <bdi dir="ltr">100 × (P<sub>max</sub> − P<sub>min</sub>) ÷ P<sub>min</sub></bdi>، حيث <bdi dir="ltr">P<sub>max</sub></bdi> و<bdi dir="ltr">P<sub>min</sub></bdi> أعلى سعر إغلاق يومي وأدناه بين المدن الثلاث، وذلك في الأيام التي يتوافر فيها سعر لكل مدينة منها فقط (${arCnt(arNum(n), AR_OBS)}). وتمثل كل نقطة مرسومة وسيط آخر 30 مشاهدة من هذا النوع، ويمتد النطاق المظلَّل بين المئين الخامس والمئين الخامس والتسعين. وكما اقترح <bdi dir="ltr">${REF.parN}</bdi>، يُستخدم تشتت الأسعار بين المواقع مؤشرًا على تكامل الأسواق. وتعكس الأرقام أسعارًا معلنة لا صفقات منفَّذة؛ ولذلك قد يعبّر الفارق أيضًا عن اختلاف توقيت نشر القنوات للأسعار واختلاف سوق بغداد الفرعي المُسعَّر.`,
+  gl:'نظرة عامة على مجموعة البيانات', glObs:(d, n) => { const r = n % 100; return `${r >= 3 && r <= 10 ? 'مشاهدات' : r >= 11 ? 'مشاهدةً' : 'مشاهدة'} يومية منذ ${d}`; }, glCov:'من أيام التداول مغطاة', glMk:n => { const r = n % 100; return `${r >= 3 && r <= 10 ? 'أسواق' : r >= 11 ? 'سوقًا' : 'سوق'} في البيانات المفتوحة`; }, glGap:'الفارق الوسيط بين المصادر', glHow:'اقرأ المزيد',
+  glTipCov:'أيام التداول من الأحد إلى الخميس.', glTipMk:'المدن وأسواق بغداد الفرعية الواردة في ملف التوافق المفتوح.', glTipGap:'الفارق بين أعلى وأدنى سعر تنقله القنوات للسوق نفسه في اليوم نفسه (الوسيط على الأيام التي تنشر فيها قناتان أو أكثر).',
+  share:'مشاركة', copyLink:'نسخ الرابط', copied:'تم النسخ', shareText:'سعر الصرف الموازي في العراق: أسعار صرف الدولار الأمريكي اليومية في بغداد والبصرة وأربيل',
+  dlImg:'تنزيل الصورة', citeApa:'نسخ الاستشهاد المرجعي (APA)', citeBib:'نسخ BibTeX', dataTo:'البيانات حتى',
+  chartLabel:'رسم بياني خطي لسعر صرف الدولار اليومي. يتيح تبويب الجدول الاطلاع على الأرقام نفسها بصيغة نصية. ويحرّك مفتاحا السهم الأيمن والأيسر المؤشر على امتداد الرسم.',
+  dayLabel:'الإغلاق اليومي', locale:'ar-IQ-u-nu-latn'
+}};
+
+const state = {lang:initialLang(), range:'ALL', tab:'chart', on:{b:true,s:false,e:false,o:true}, inv:{b:true,s:false,e:false,o:true}, ir:'ALL', vr:'ALL', dr:'ALL', cr:'ALL'};
+const L = () => I18N[state.lang];
+const fd = (ds, opts) => new Intl.DateTimeFormat(L().locale, Object.assign({timeZone:'UTC'}, opts || {day:'numeric',month:'short',year:'numeric'})).format(new Date(ds + 'T00:00:00Z'));
+
+const fdl = ds => state.lang === 'en' ? new Intl.DateTimeFormat('en-US', {timeZone:'UTC', day:'numeric', month:'long', year:'numeric'}).format(new Date(ds + 'T00:00:00Z')) : fd(ds);
+
+const RANGE_DAYS = {'1M':31,'3M':92,'6M':183,'1Y':366,'5Y':1827,'ALL':1e9};
+const rangeStartFor = r => { const t = T[N-1] - (r === '3Y' ? 1096 : RANGE_DAYS[r])*DAY; let i = 0; while (i < N-1 && T[i] < t) i++; return i; };
+const rangeStart = () => rangeStartFor(state.range);
+
+/* ---------------------------------------------------------------- chart engine */
+function niceTicks(lo, hi, n){
+  if (hi === lo) hi = lo + 1;
+  const raw = (hi - lo) / n, p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p;
+  const step = (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * p;
+  const a = Math.floor(lo/step + 1e-9) * step, b = Math.ceil(hi/step - 1e-9) * step, out = [];
+  for (let v = a; v <= b + step*0.001; v += step) out.push(+v.toFixed(10));
+  return out;
+}
+function xTicks(x0, x1, iw){
+  const span = (x1 - x0) / DAY, target = span / Math.max(2, Math.floor(iw / 88));
+  const units = [['week',7],['2week',14],['month',30.4],['quarter',91.3],['half',182.6],['year',365.25]];
+  const u = units.find(u => u[1] >= target) || units[units.length-1], out = [];
+  if (u[0] === 'week' || u[0] === '2week'){
+    let t = x0 + ((7 - new Date(x0).getUTCDay()) % 7) * DAY;
+    for (; t <= x1; t += u[1]*DAY) out.push({t, unit:u[0]});
+  } else {
+    const stepM = u[0] === 'month' ? 1 : u[0] === 'quarter' ? 3 : u[0] === 'half' ? 6 : 12, d0 = new Date(x0);
+    let mi = Math.ceil((d0.getUTCFullYear()*12 + d0.getUTCMonth()) / stepM) * stepM;
+    for (;; mi += stepM){ const t = Date.UTC(Math.floor(mi/12), mi % 12, 1); if (t > x1) break; if (t >= x0) out.push({t, unit:u[0]}); }
+  }
+  return out;
+}
+const tickLabel = tk => {
+  const ds = new Date(tk.t).toISOString().slice(0,10);
+  if (tk.unit === 'year') return fd(ds,{year:'numeric'});
+  if (tk.unit === 'week' || tk.unit === '2week') return fd(ds,{day:'numeric',month:'short'});
+  return fd(ds,{month:'short',year:'numeric'});
+};
+const SVGNS = 'http://www.w3.org/2000/svg';
+const el = (name, attrs, parent) => { const n = document.createElementNS(SVGNS, name); for (const k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; };
+
+/* cfg: {height, i0, series:[{id,data,color,w,dash,step}], zero, area, events, endLabels, tip(i)->{rows,foot}, fmt, yFmt, label} */
+function drawChart(host, cfg){
+  host.innerHTML = ''; host.style.direction = 'ltr';
+  const W = Math.max(280, host.clientWidth), narrow = W < 600, H = narrow ? Math.round(cfg.height*0.82) : cfg.height;
+  const m = {l: cfg.ml || (narrow ? 40 : 48), r: cfg.endLabels && !narrow ? (cfg.mr || 96) : 14, t: cfg.events ? 30 : 14, b: 28};
+  const iw = W - m.l - m.r, ih = H - m.t - m.b, i0 = cfg.i0, i1 = N - 1, x0 = T[i0], x1 = T[i1];
+  const X = t => m.l + (t - x0) / ((x1 - x0) || 1) * iw;
+  let lo = Infinity, hi = -Infinity;
+  cfg.series.forEach(s => { for (let i = i0; i <= i1; i++){ const v = s.data[i]; if (v != null){ if (v < lo) lo = v; if (v > hi) hi = v; } } });
+  if (cfg.ribbon) for (let i = i0; i <= i1; i++){ const a = cfg.ribbon.hi[i], b = cfg.ribbon.lo[i]; if (a != null && a > hi) hi = a; if (b != null && b < lo) lo = b; }
+  if (cfg.zero){ lo = Math.min(lo, 0); hi = Math.max(hi, 0); }
+  const ticks = niceTicks(lo, hi, narrow ? 4 : 6), yMin = ticks[0], yMax = ticks[ticks.length-1];
+  const Y = v => m.t + (1 - (v - yMin) / ((yMax - yMin) || 1)) * ih;
+
+  const svg = el('svg', {viewBox:`0 0 ${W} ${H}`, width:W, height:H, role:'img', 'aria-label':cfg.label || L().chartLabel}, host);
+  ticks.forEach(v => {
+    el('line', {x1:m.l, x2:m.l+iw, y1:Y(v), y2:Y(v), style:'stroke:var(--grid);stroke-width:1;stroke-dasharray:3 3'}, svg);
+    const t = el('text', {x:m.l-8, y:Y(v)+4, 'text-anchor':'end'}, svg); t.textContent = (cfg.yFmt || (z => nf(z,0)))(v);
+  });
+  if (cfg.zero) el('line', {x1:m.l, x2:m.l+iw, y1:Y(0), y2:Y(0), style:'stroke:var(--muted);stroke-width:1.2'}, svg);
+  xTicks(x0, x1, iw).forEach(tk => {
+    const x = X(tk.t);
+    el('line', {x1:x, x2:x, y1:m.t+ih, y2:m.t+ih+4, style:'stroke:var(--muted);stroke-width:1'}, svg);
+    const t = el('text', {x, y:m.t+ih+18, 'text-anchor':'middle'}, svg); t.textContent = tickLabel(tk);
+  });
+  el('line', {x1:m.l, x2:m.l+iw, y1:m.t+ih, y2:m.t+ih, style:'stroke:var(--muted);stroke-width:1'}, svg);
+
+  if (cfg.events){
+    EVENTS.forEach(ev => {
+      const ti = Date.parse(ev.date + 'T00:00:00Z'); if (ti < x0 || ti > x1) return;
+      const x = X(ti);
+      el('line', {x1:x, x2:x, y1:m.t-4, y2:m.t+ih, style:'stroke:var(--muted);stroke-width:1;stroke-dasharray:1 3'}, svg);
+      el('circle', {cx:x, cy:m.t-14, r:9, style:'fill:var(--panel);stroke:var(--ink);stroke-width:1.2'}, svg);
+      const t = el('text', {x, y:m.t-10, 'text-anchor':'middle', style:'fill:var(--ink);font-weight:600;font-size:11px'}, svg); t.textContent = ev.id;
+    });
+  }
+  if (cfg.ribbon){
+    const up = [], dn = [];
+    for (let i = i0; i <= i1; i++){ const a = cfg.ribbon.hi[i], b = cfg.ribbon.lo[i]; if (a == null || b == null) continue; const x = X(T[i]).toFixed(1); up.push(x + ',' + Y(a).toFixed(1)); dn.push(x + ',' + Y(b).toFixed(1)); }
+    if (up.length > 1) el('path', {d:'M' + up.join(' L') + ' L' + dn.reverse().join(' L') + ' Z', style:`fill:${cfg.ribbon.color};opacity:.16;stroke:none`}, svg);
+  }
+  const pathFor = (s, from, to) => {
+    let d = '', pen = false, prev = null;
+    for (let i = from; i <= to; i++){
+      const v = s.data[i]; if (v == null) continue;
+      const x = X(T[i]);
+      if (s.step && prev != null && v !== prev){ d += ` L${x.toFixed(1)},${Y(prev).toFixed(1)}`; }
+      d += (pen ? ' L' : 'M') + x.toFixed(1) + ',' + Y(v).toFixed(1); pen = true; prev = v;
+    }
+    return d;
+  };
+  cfg.series.forEach(s => {
+    const sty = `fill:none;stroke:${s.color};stroke-width:${s.w};stroke-linejoin:round;stroke-linecap:round` + (s.dash ? `;stroke-dasharray:${s.dash}` : '');
+    if (cfg.area && s.id === 'prem'){
+      let d = pathFor(s, i0, i1); if (d){ const fx = X(T[i0]), lx = X(T[i1]);
+        el('path', {d: d + ` L${lx.toFixed(1)},${Y(0).toFixed(1)} L${fx.toFixed(1)},${Y(0).toFixed(1)} Z`, style:`fill:${s.color};opacity:.13;stroke:none`}, svg); }
+    }
+    el('path', {d:pathFor(s, i0, i1), style:sty}, svg);
+  });
+
+  /* direct labels at the line ends */
+  if (cfg.endLabels && !narrow){
+    const items = cfg.series.filter(s => s.label).map(s => { let li = -1; for (let i = i1; i >= i0; i--) if (s.data[i] != null){ li = i; break; } return li < 0 ? null : {s, y:Y(s.data[li])}; }).filter(Boolean).sort((a,b) => a.y - b.y);
+    for (let k = 1; k < items.length; k++) if (items[k].y - items[k-1].y < 17) items[k].y = items[k-1].y + 17;
+    items.forEach(it => { const d = document.createElement('div'); d.className = 'lbl'; d.textContent = it.s.label; d.style.cssText = `left:${m.l+iw+8}px;top:${it.y-8}px;color:${it.s.color}`; d.dir = state.lang === 'ar' ? 'rtl' : 'ltr'; host.appendChild(d); });
+  }
+
+  /* hover / keyboard cursor */
+  const cur = el('g', {style:'display:none'}, svg);
+  const vline = el('line', {y1:m.t, y2:m.t+ih, style:'stroke:var(--ink);stroke-width:1;opacity:.55'}, cur);
+  const dots = cfg.series.map(s => el('circle', {r:4, style:`fill:var(--panel);stroke:${s.color};stroke-width:2`}, cur));
+  const tip = document.createElement('div'); tip.className = 'tip'; tip.style.display = 'none'; tip.dir = state.lang === 'ar' ? 'rtl' : 'ltr'; host.appendChild(tip);
+  let curIdx = null;
+  const nearest = t => { let lo2 = i0, hi2 = i1; while (hi2 - lo2 > 1){ const mid = (lo2 + hi2) >> 1; if (T[mid] < t) lo2 = mid; else hi2 = mid; } return (t - T[lo2] <= T[hi2] - t) ? lo2 : hi2; };
+  const show = i => {
+    curIdx = i; const x = X(T[i]); cur.style.display = ''; vline.setAttribute('x1', x); vline.setAttribute('x2', x);
+    cfg.series.forEach((s, k) => { const v = s.data[i]; if (v == null) dots[k].style.display = 'none'; else { dots[k].style.display = ''; dots[k].setAttribute('cx', x); dots[k].setAttribute('cy', Y(v)); } });
+    const info = cfg.tip(i);
+    tip.innerHTML = `<div class="d">${fd(DATA.d[i])}</div>` + info.rows.map(r => `<div class="r"><span><i style="--sw:${r.color}"></i>${r.name}</span><b>${r.value}</b></div>`).join('') + (info.foot ? `<div class="f">${info.foot}</div>` : '');
+    tip.style.display = 'block';
+    const tw = tip.offsetWidth, th = tip.offsetHeight;
+    let left = x + 14; if (left + tw > W - 4) left = x - 14 - tw; if (left < 4) left = 4;
+    tip.style.left = left + 'px'; tip.style.top = Math.max(2, Math.min(m.t + 6, H - th - 30)) + 'px';
+  };
+  const hide = () => { curIdx = null; cur.style.display = 'none'; tip.style.display = 'none'; };
+  host.onpointermove = ev => { const r = host.getBoundingClientRect(), px = ev.clientX - r.left; if (px < m.l - 4 || px > m.l + iw + 4) return hide(); show(nearest(x0 + (px - m.l) / iw * (x1 - x0))); };
+  host.onpointerleave = hide;
+  host.tabIndex = 0; host.setAttribute('role', 'group'); host.setAttribute('aria-label', cfg.label || L().chartLabel);
+  host.onkeydown = ev => {
+    if (ev.key === 'ArrowLeft' || ev.key === 'ArrowRight'){ ev.preventDefault(); const d = ev.key === 'ArrowLeft' ? -1 : 1; show(Math.max(i0, Math.min(i1, (curIdx == null ? i1 : curIdx) + d))); }
+    else if (ev.key === 'Escape') hide();
+  };
+  host.onblur = hide;
+}
+
+function sparkline(vals, color){
+  const w = 96, h = 28, pts = vals.filter(v => v != null); if (pts.length < 2) return '';
+  const lo = Math.min(...pts), hi = Math.max(...pts), n = vals.length; let d = '', last = null;
+  vals.forEach((v, i) => { if (v == null) return; const x = 2 + i/(n-1)*(w-4), y = 3 + (1 - (v-lo)/((hi-lo)||1))*(h-6); d += (d ? ' L' : 'M') + x.toFixed(1) + ',' + y.toFixed(1); last = [x,y]; });
+  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><path d="${d}" style="fill:none;stroke:${color};stroke-width:1.6"/><circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="2.6" style="fill:${color}"/></svg>`;
+}
+
+/* ---------------------------------------------------------------- derived numbers */
+const iB = lastIdx(DATA.b);
+const prelim = DATA.s[N-1] == null || DATA.e[N-1] == null;
+const b30 = idxAgo(DATA.b, 30, iB), b365 = idxAgo(DATA.b, 365, iB);
+const chg30 = (DATA.b[iB] - DATA.b[b30]) / DATA.b[b30] * 100, chg365 = (DATA.b[iB] - DATA.b[b365]) / DATA.b[b365] * 100;
+let lo12 = Infinity, hi12 = -Infinity;
+for (let i = 0; i < N; i++) if (T[i] > T[iB] - 365*DAY && DATA.b[i] != null){ lo12 = Math.min(lo12, DATA.b[i]); hi12 = Math.max(hi12, DATA.b[i]); }
+const premNow = PREM[iB]; let premMin = Infinity, premMax = -Infinity;
+PREM.forEach(v => { if (v != null){ premMin = Math.min(premMin, v); premMax = Math.max(premMax, v); } });
+const missing = (() => { const have = new Set(DATA.d); let c = 0; for (let t = T[0]; t <= T[N-1]; t += DAY){ const wd = new Date(t).getUTCDay(); if (wd !== 5 && wd !== 6 && !have.has(new Date(t).toISOString().slice(0,10))) c++; } return c; })();
+const cityGap = (() => { const g = []; for (let i = 0; i < N; i++){ if (DATA.d[i] < '2024-01-01') continue; const v = [DATA.b[i], DATA.s[i], DATA.e[i]]; if (v.some(x => x == null)) continue; g.push((Math.max(...v) - Math.min(...v)) / Math.min(...v) * 100); } g.sort((a,b) => a - b); return g[Math.floor(g.length/2)]; })();
+
+/* ---------------------------------------------------------------- sections */
+const coverageFromData = () => { const have = new Set(DATA.d); let ex = 0, ms = 0; for (let t = T[0]; t <= T[N-1]; t += DAY){ const wd = new Date(t).getUTCDay(); if (wd === 5 || wd === 6) continue; ex++; if (!have.has(new Date(t).toISOString().slice(0, 10))) ms++; } return 100 * (ex - ms) / ex; };
+function glanceHTML(){
+  const l = L(), g = STATS || {};
+  const obs = g.observations != null ? g.observations : N, first = g.first_date || DATA.d[0];
+  const cov = g.coverage_pct != null ? g.coverage_pct : Math.round(coverageFromData() * 10) / 10;
+  const parts = [`<span><b>${obs.toLocaleString('en-US')}</b> ${l.glObs(fd(first, {month:'short', year:'numeric'}), obs)}</span>`, `<span title="${l.glTipCov}"><b>${nf(cov, 1)}%</b> ${l.glCov}</span>`];
+  if (g.markets != null) parts.push(`<span title="${l.glTipMk}"><b>${g.markets}</b> ${l.glMk(g.markets)}</span>`);
+  if (g.source_gap_median_pct != null) parts.push(`<span title="${l.glTipGap}"><b>${nf(g.source_gap_median_pct, 2)}%</b> ${l.glGap}</span>`);
+  return `<p class="glance"><span class="gl">${l.gl}</span>${parts.join('')}<a href="#about">${l.glHow}</a></p>`;
+}
+/* Keeps the headline on one line: shrinks it step by step until it fits (phones wrap instead). */
+function fitTitle(){
+  const h = document.querySelector('#lede h1'); if (!h) return;
+  h.style.fontSize = '';
+  if (window.innerWidth <= 600) return;
+  let fs = parseFloat(getComputedStyle(h).fontSize);
+  while (h.scrollWidth > h.clientWidth + 1 && fs > 16){ fs -= 0.5; h.style.fontSize = fs + 'px'; }
+}
+function renderLede(){
+  const l = L(), v = DATA.b[iB];
+  document.getElementById('lede').innerHTML = `<div class="lede"><p class="kicker">${l.kicker}</p><h1>${l.h1(nf(v,0))}</h1><p class="dek">${l.dek(chg30, chg365)}</p><p class="meta">${l.meta(fd(DATA.d[N-1]), prelim)}</p>${glanceHTML()}</div>`;
+  fitTitle();
+  document.getElementById('figures').innerHTML = `<div class="figures">
+    <div class="fig"><div class="l">${l.f1}</div><div class="v">${nf(v)}</div><div class="n">${l.f1u} · ${l.f1n(fd(DATA.d[iB],{day:'numeric',month:'short'}), prelim)}</div></div>
+    <div class="fig"><div class="l">${l.f2}</div><div class="v">${sgn(chg30)}%</div><div class="n">${l.f2n(nf(DATA.b[b30]), fd(DATA.d[b30],{day:'numeric',month:'short'}))}</div></div>
+    <div class="fig"><div class="l">${l.f3}</div><div class="v sm">${nf(lo12,0)}–${nf(hi12,0)}</div><div class="n">${l.f3n}</div></div>
+    <div class="fig"><div class="l">${l.f4}</div><div class="v">${sgn(premNow)}%</div><div class="n">${l.f4n(nf(OFF[iB],0))}</div></div>
+  </div>`;
+}
+
+function mainSeries(){
+  const l = L(), keys = ['b','s','e','o'].filter(k => state.on[k]);
+  return keys.map(k => ({id:k, data:VAL[k], color:SERIES[k].color, w:SERIES[k].w, dash:SERIES[k].dash, step:SERIES[k].step, label:l.short[k]}));
+}
+function renderMain(){
+  const l = L(), i0 = rangeStart();
+  const chips = ['b','s','e','o'].map(k => `<button class="chip${k==='o'?' dash':''}" type="button" data-k="${k}" aria-pressed="${state.on[k]}" style="--sw:${SERIES[k].color}"><i></i>${l.names[k]}</button>`).join('');
+  const seg = Object.keys(RANGE_DAYS).map(r => `<button type="button" data-r="${r}" aria-pressed="${state.range===r}">${l.ranges[r]}</button>`).join('');
+  let body = '';
+  if (state.tab === 'chart'){
+    const evs = EVENTS.filter(e => Date.parse(e.date) >= T[i0]);
+    body = `<div class="controls"><div class="chips" role="group">${chips}</div><div class="seg" role="group">${seg}</div></div>
+      <div class="plot"><div class="host" id="mainhost"></div></div>
+      <p class="hint">${l.hint(cityGap)}</p>
+      ${evs.length ? `<div class="notes"><ol start="1" style="list-style:none;padding:0;margin:0">${evs.map(e => `<li><b>${e.id}</b>&nbsp; ${l.ev(Object.assign({dd:fd(e.date)}, e))}</li>`).join('')}</ol></div>` : ''}`;
+  } else if (state.tab === 'table'){
+    const rows = []; for (let i = N-1; i >= Math.max(0, N-25); i--) rows.push(i);
+    body = `<div class="pane"><div class="scroll scrolly"><table><thead><tr><th>${l.th.date}</th><th class="num">${l.th.b}</th><th class="num">${l.th.s}</th><th class="num">${l.th.e}</th><th class="num">${l.th.o}</th></tr></thead><tbody>${rows.map(i => `<tr><td>${fd(DATA.d[i])}</td><td class="num">${DATA.b[i]==null?'':nf(DATA.b[i])}</td><td class="num">${DATA.s[i]==null?'':nf(DATA.s[i])}</td><td class="num">${DATA.e[i]==null?'':nf(DATA.e[i])}</td><td class="num">${nf(OFF[i],0)}</td></tr>`).join('')}</tbody></table></div><p class="small" style="margin-top:8px">${l.tblNote}</p></div>`;
+  } else {
+    body = `<div class="pane"><p class="dlp">${l.dlP}</p><div class="links"><a class="btn" href="${CSV_URL}" target="_blank" rel="noopener">${l.dlFull}</a><a class="btn" href="${REPO_URL}" target="_blank" rel="noopener">${l.dlRepo}</a><a class="btn" href="${DOI_URL}" target="_blank" rel="noopener">${l.dlCite}</a></div><p class="cite">${l.cite} <a href="${DOI_URL}" target="_blank" rel="noopener">${DOI_URL.replace('https://','')}</a></p></div>`;
+  }
+  const tabs = ['chart','table','download'].map(t => `<button type="button" role="tab" data-t="${t}" aria-selected="${state.tab===t}">${l.tabs[t]}</button>`).join('');
+  document.getElementById('main').innerHTML = `<section class="frame" aria-labelledby="mt"><div class="frame-h"><h2 id="mt">${l.mainT}</h2>${state.tab === 'download' ? '' : `<p class="sub">${l.mainS}</p>`}</div>${body}<div class="src"><span>${l.src}</span>${srcRight('mainhost', state.tab === 'chart')}</div><div class="tabs" role="tablist">${tabs}</div></section>`;
+  if (state.tab === 'chart') drawMain();
+}
+function drawMain(){
+  const host = document.getElementById('mainhost'); if (!host) return;
+  const l = L(), i0 = rangeStart();
+  drawChart(host, {height:400, i0, series:mainSeries(), events:true, endLabels:true,
+    yFmt:v => nf(v,0),
+    tip:i => { const rows = ['b','s','e','o'].filter(k => state.on[k]).map(k => ({name:l.names[k], color:SERIES[k].color, value:VAL[k][i] == null ? '—' : nf(VAL[k][i], k === 'o' ? 0 : 1)})).sort((a,b) => (parseFloat(b.value.replace(/,/g,'')) || -1) - (parseFloat(a.value.replace(/,/g,'')) || -1)); const notes = []; if (rows.some(r => r.value === '—')) notes.push(l.noq); return {rows, foot:notes.join(' · ')}; }});
+}
+
+function renderPremium(){
+  const l = L();
+  document.getElementById('eb1').textContent = l.eb1;
+  document.getElementById('premium').innerHTML = `<section class="frame"><div class="frame-h"><h3>${l.premT}</h3><p class="sub">${l.premS}</p></div><p class="takeaway">${l.premTake(premNow, premMin, premMax)}</p><div class="plot" style="margin-top:8px"><div class="host" id="premhost"></div></div><div class="src"><span>${l.src}</span>${srcRight('premhost')}</div></section>`;
+  drawPremium();
+}
+function drawPremium(){
+  const host = document.getElementById('premhost'); if (!host) return; const l = L();
+  drawChart(host, {height:300, i0:0, zero:true, area:true, yFmt:v => sgn(v,0) + '%',
+    series:[{id:'prem', data:PREM, color:'var(--c-bag)', w:2}],
+    tip:i => ({rows:[{name:l.names.b, color:'var(--c-bag)', value:PREM[i]==null?'':sgn(PREM[i]) + '%'}, {name:l.names.b + ' ' + l.dayLabel, color:'var(--muted)', value:nf(DATA.b[i])}, {name:l.names.o, color:'var(--c-off)', value:nf(OFF[i],0)}]})});
+}
+
+function renderMarkets(){
+  const l = L(), rows = []; let anyLate = false;
+  const cut90 = T[N-1] - 90*DAY;
+  ['b','s','e','o'].forEach(k => {
+    const arr = VAL[k], li = lastIdx(arr); if (li < 0) return;
+    const p1 = prevIdx(arr, li), m1 = idxAgo(arr, 30, li), y1 = idxAgo(arr, 365, li);
+    const pc = j => j < 0 ? '—' : sgn((arr[li]-arr[j])/arr[j]*100) + '%';
+    const spark = []; for (let i = 0; i < N; i++) if (T[i] >= cut90) spark.push(arr[i]);
+    if (li !== N-1) anyLate = true;
+    const late = li !== N-1 ? ` <span class="small">(${fd(DATA.d[li],{day:'numeric',month:'short'})})</span>` : '';
+    rows.push(`<tr><td><span class="sw" style="--sw:${SERIES[k].color}"></span>${l.names[k]}</td><td class="num">${nf(arr[li], k==='o'?0:1)}${late}</td><td class="num">${pc(p1)}</td><td class="num">${pc(m1)}</td><td class="num">${pc(y1)}</td><td>${sparkline(spark, SERIES[k].color)}</td></tr>`);
+  });
+  document.getElementById('markets').innerHTML = `<section class="frame mk"><div class="frame-h"><h3>${l.mkT}</h3><p class="sub">${l.mkS}</p></div><div class="pane"><div class="scroll"><table><thead><tr><th>${l.mkTh.m}</th><th class="num">${l.mkTh.c}</th><th class="num">${l.mkTh.d}</th><th class="num">${l.mkTh.m1}</th><th class="num">${l.mkTh.y1}</th><th>${l.mkTh.sp}</th></tr></thead><tbody>${rows.join('')}</tbody></table></div></div>${anyLate ? `<div class="src"><span>${l.mkNote}</span></div>` : ''}</section>`;
+}
+
+function renderAbout(){
+  const l = L();
+  document.getElementById('about').innerHTML = `<h2>${l.abT}</h2><ul>${l.ab(missing).map(r => `<li><b>${r[0]}</b> ${r[1]}</li>`).join('')}</ul><p class="cite" style="margin-top:16px">${l.cite} <a href="${DOI_URL}" target="_blank" rel="noopener">${DOI_URL.replace('https://','')}</a></p><p class="cite-btns"><button class="btn sm" type="button" data-copy="apa">${l.citeApa}</button><button class="btn sm" type="button" data-copy="bib">${l.citeBib}</button></p>`;
+  document.getElementById('foot').innerHTML = `${l.foot} · <a href="${REPO_URL}" target="_blank" rel="noopener">GitHub</a>`;
+}
+
+function renderAll(){
+  const l = L();
+  document.documentElement.lang = state.lang; document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
+  document.getElementById('brand').textContent = l.brand; document.getElementById('lang').textContent = l.lang;
+  document.title = l.brand; renderShare();
+  renderLede(); renderMain(); renderInv(); renderPremium(); renderMarkets(); renderDisp(); document.getElementById('eb3').textContent = l.eb3;
+  document.getElementById('stability').innerHTML = '<div id="volbox"></div><div id="distbox"></div>'; renderVol(); renderDist(); renderAbout();
+}
+
+/* ---------------------------------------------------------------- stability and dispersion */
+const pctl = (a, p) => { const k = (a.length - 1) * p, f = Math.floor(k), c = Math.ceil(k); return a[f] + (a[c] - a[f]) * (k - f); };
+const sortNum = a => a.slice().sort((x, y) => x - y);
+const CH = []; { let prev = -1; for (let i = 0; i < N; i++){ if (DATA.b[i] == null) continue; if (prev >= 0) CH.push({i, date:DATA.d[i], pct:100*Math.log(DATA.b[i]/DATA.b[prev]), from:DATA.b[prev], to:DATA.b[i]}); prev = i; } }
+const VOLW = 30, VSD = new Array(N).fill(null), VMED = new Array(N).fill(null), VWIN = new Array(N).fill(null);
+for (let k = VOLW - 1; k < CH.length; k++){
+  const v = CH.slice(k - VOLW + 1, k + 1).map(c => c.pct), mu = v.reduce((a, b) => a + b, 0) / VOLW;
+  VSD[CH[k].i] = Math.sqrt(v.reduce((a, b) => a + (b - mu) * (b - mu), 0) / (VOLW - 1));
+  VMED[CH[k].i] = pctl(sortNum(v.map(Math.abs)), .5); VWIN[CH[k].i] = k;
+}
+const GAP = DATA.d.map((_, i) => { const v = [DATA.b[i], DATA.s[i], DATA.e[i]]; return v.some(x => x == null) ? null : 100 * (Math.max(...v) - Math.min(...v)) / Math.min(...v); });
+const DMED = new Array(N).fill(null), DLO = new Array(N).fill(null), DHI = new Array(N).fill(null);
+{ const obs = []; for (let i = 0; i < N; i++){ if (GAP[i] == null) continue; obs.push(GAP[i]); if (obs.length >= VOLW){ const q = sortNum(obs.slice(-VOLW)); DMED[i] = pctl(q, .5); DLO[i] = pctl(q, .05); DHI[i] = pctl(q, .95); } } }
+
+const srcRight = (id, show = true) => `<span class="srcr"><span>${L().lic}</span>${show ? `<button class="dl" type="button" data-dl="${id}">${L().dlImg}</button>` : ''}</span>`;
+const rl = r => r === '3Y' ? L().r3Y : L().ranges[r];
+const segHTML = (g, list, cur) => `<div class="seg" role="group">${list.map(r => `<button type="button" data-g="${g}" data-r="${r}" aria-pressed="${cur === r}">${rl(r)}</button>`).join('')}</div>`;
+const evNotes = (i0, inv) => { const l = L(), evs = EVENTS.filter(e => Date.parse(e.date) >= T[i0]); return evs.length ? `<div class="notes"><ol style="list-style:none;padding:0;margin:0">${evs.map(e => `<li><b>${e.id}</b>&nbsp; ${l.ev(Object.assign({dd:fd(e.date)}, e, inv ? {from:1/e.from, to:1/e.to, dec:6} : {}))}</li>`).join('')}</ol></div>` : ''; };
+const yDec = v => (Math.abs(v - Math.round(v * 10) / 10) < 1e-9 ? nf(v, 1) : nf(v, 2)) + '%';
+const frameWrap = (h, sub, take, controls, plot, extra, method, l, hid, srcLine) => `<section class="frame"><div class="frame-h"><h3>${h}</h3><p class="sub">${sub}</p></div>${take ? `<p class="takeaway">${take}</p>` : ''}${controls}${plot}${extra}<p class="hint method">${method}</p><div class="src"><span>${srcLine || l.srcB}</span>${srcRight(hid)}</div></section>`;
+
+function renderVol(){
+  const l = L(), i0 = rangeStartFor(state.vr), iL = lastIdx(VSD);
+  let pk = -1; for (let i = 0; i < N; i++) if (VSD[i] != null && (pk < 0 || VSD[i] > VSD[pk])) pk = i;
+  const w = CH.slice(VWIN[pk] - VOLW + 1, VWIN[pk] + 1), big = w.reduce((a, c) => Math.abs(c.pct) > Math.abs(a.pct) ? c : a);
+  const take = l.volTake(nf(VSD[iL], 2), nf(VMED[iL], 2), {v:nf(VSD[pk], 2), d:fd(DATA.d[pk]), dl:fdl(DATA.d[pk]), big:sgn(big.pct, 1) + '%', abs:nf(Math.abs(big.pct), 1) + '%', up:big.pct > 0, bd:fd(big.date), bdl:fdl(big.date)});
+  const controls = `<div class="controls"><span></span>${segHTML('vr', ['6M','1Y','5Y','ALL'], state.vr)}</div><div class="key nk"><span><i style="background:var(--c-bag);height:4px;vertical-align:3px"></i>${l.volSdT}</span><span><i style="background:var(--c-bag);height:2px;vertical-align:4px"></i>${l.volMdT}</span></div>`;
+  document.getElementById('volbox').innerHTML = frameWrap(l.volT, l.volS, take, controls, '<div class="plot"><div class="host" id="volhost"></div></div>', evNotes(i0), l.volMethod(), l, 'volhost');
+  drawVol();
+}
+function drawVol(){
+  const host = document.getElementById('volhost'); if (!host) return; const l = L(), i0 = rangeStartFor(state.vr);
+  drawChart(host, {height:330, i0, zero:true, events:true, endLabels:true, mr:state.lang === 'ar' ? 124 : 152, yFmt:yDec,
+    series:[{id:'sd', data:VSD, color:SERIES.b.color, w:2.6, label:l.volSd}, {id:'md', data:VMED, color:SERIES.b.color, w:1.5, label:l.volMd}],
+    tip:i => ({rows:[{name:l.volSdT, color:SERIES.b.color, value:VSD[i] == null ? '—' : nf(VSD[i], 2) + '%'}, {name:l.volMdT, color:SERIES.b.color, value:VMED[i] == null ? '—' : nf(VMED[i], 2) + '%'}], foot:l.volFoot})});
+}
+
+function distWindow(){ const i0 = rangeStartFor(state.dr); return CH.filter(c => c.i >= i0); }
+function renderDist(){
+  const l = L(), w = distWindow(), v = w.map(c => c.pct), sv = sortNum(v), n = v.length, ab = sortNum(v.map(Math.abs));
+  const med = pctl(sv, .5), q1 = pctl(sv, .25), q3 = pctl(sv, .75), p5 = pctl(sv, .05), p95 = pctl(sv, .95), zero = v.filter(x => x === 0).length, beyond = v.filter(x => Math.abs(x) >= 1.5).length;
+  const take = l.distTake(nf(pctl(ab, .5), 2), beyond, n.toLocaleString('en-US'), nf(beyond / n * 100, 1));
+  const top = w.slice().sort((a, b) => Math.abs(b.pct) - Math.abs(a.pct)).slice(0, 5);
+  const controls = `<div class="controls"><span></span>${segHTML('dr', ['1Y','3Y','5Y','ALL'], state.dr)}</div>`;
+  const key = `<div class="key"><span><i style="background:var(--c-bag)"></i>${l.kBars}</span><span><i style="background:var(--muted);opacity:.75"></i>${l.kTail}</span><span><i style="background:var(--accent-soft);border:1px solid var(--rule)"></i>${l.kBand}</span><span><i style="background:var(--ink);height:3px;vertical-align:3px"></i>${l.kMed}</span></div>`;
+  const stats = `<div class="stats"><div><div class="l">${l.stMed}</div><div class="v">${sgn(med, 2)}%</div></div><div><div class="l">${l.stHalf}</div><div class="v">[${sgn(q1, 2)}%, ${sgn(q3, 2)}%]</div></div><div><div class="l">${l.stNinety}</div><div class="v">[${sgn(p5, 2)}%, ${sgn(p95, 2)}%]</div></div><div><div class="l">${l.stZero}</div><div class="v">${nf(zero / n * 100, 1)}%</div></div><div><div class="l">${l.stN}</div><div class="v">${n.toLocaleString('en-US')}</div></div></div>`;
+  const table = `<div class="pane"><h4 class="serif" style="font-size:1.02rem;margin:0 0 6px">${l.largestH}</h4><div class="scroll"><table class="mini"><thead><tr><th>${l.lth.d}</th><th class="num">${l.lth.c}</th><th class="num">${l.lth.r}</th></tr></thead><tbody>${top.map(c => `<tr><td>${fd(c.date)}</td><td class="num">${sgn(c.pct, 1)}%</td><td class="num">${(dp => nf(c.from, dp) + ' → ' + nf(c.to, dp))(Number.isInteger(c.from) && Number.isInteger(c.to) ? 0 : 1)}</td></tr>`).join('')}</tbody></table></div></div>`;
+  document.getElementById('distbox').innerHTML = frameWrap(l.distT, l.distS, take, controls + key, '<div class="plot"><div class="host" id="disthost"></div></div>', stats + table, l.distMethod(n.toLocaleString('en-US'), fdl(w[0].date), fdl(w[w.length - 1].date)), l, 'disthost');
+  drawDist({v, med, p5, p95});
+}
+function drawDist(o){
+  const host = document.getElementById('disthost'); if (!host) return;
+  if (!o){ const v = distWindow().map(c => c.pct), sv = sortNum(v); o = {v, med:pctl(sv, .5), p5:pctl(sv, .05), p95:pctl(sv, .95)}; }
+  drawHist(host, o);
+}
+function drawHist(host, o){
+  host.innerHTML = ''; host.style.direction = 'ltr';
+  const l = L(), W = Math.max(280, host.clientWidth), narrow = W < 600, H = narrow ? 270 : 330;
+  const m = {l:narrow ? 40 : 48, r:14, t:18, b:50}, iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const LIM = 1.5, BW = 0.1, NB = 30, S = NB + 2, sw = iw / S, n = o.v.length, cnt = new Array(S).fill(0);
+  o.v.forEach(x => { if (x < -LIM) cnt[0]++; else if (x >= LIM) cnt[S - 1]++; else cnt[1 + Math.min(NB - 1, Math.floor((x + LIM) / BW + 1e-9))]++; });
+  const share = cnt.map(c => c / n * 100), ticks = niceTicks(0, Math.max(...share), 4), top = ticks[ticks.length - 1];
+  const Y = q => m.t + (1 - q / top) * ih, XS = j => m.l + j * sw, XV = x => m.l + (1 + (Math.max(-LIM, Math.min(LIM, x)) + LIM) / BW) * sw;
+  const svg = el('svg', {viewBox:`0 0 ${W} ${H}`, width:W, height:H, role:'img', 'aria-label':l.histLabel}, host);
+  ticks.forEach(t => { el('line', {x1:m.l, x2:m.l + iw, y1:Y(t), y2:Y(t), style:'stroke:var(--grid);stroke-width:1;stroke-dasharray:3 3'}, svg); const tx = el('text', {x:m.l - 8, y:Y(t) + 4, 'text-anchor':'end'}, svg); tx.textContent = nf(t, t % 1 ? 1 : 0) + '%'; });
+  el('rect', {x:XV(o.p5), y:m.t, width:Math.max(1, XV(o.p95) - XV(o.p5)), height:ih, style:'fill:var(--accent-soft)'}, svg);
+  share.forEach((q, j) => { const tail = j === 0 || j === S - 1; el('rect', {x:XS(j) + 1, y:Y(q), width:Math.max(1, sw - 2), height:Math.max(0, m.t + ih - Y(q)), style:tail ? 'fill:var(--muted);opacity:.75' : 'fill:var(--c-bag);opacity:.92'}, svg); });
+  [0, S - 1].forEach(j => { if (cnt[j]){ const t = el('text', {x:XS(j) + sw / 2, y:Y(share[j]) - 5, 'text-anchor':'middle', style:'font-size:11px'}, svg); t.textContent = cnt[j]; } });
+  el('line', {x1:m.l, x2:m.l + iw, y1:m.t + ih, y2:m.t + ih, style:'stroke:var(--muted);stroke-width:1'}, svg);
+  for (let e = -1.5; e <= 1.5001; e += 0.5){ const x = XV(e); el('line', {x1:x, x2:x, y1:m.t + ih, y2:m.t + ih + 4, style:'stroke:var(--muted);stroke-width:1'}, svg); const t = el('text', {x, y:m.t + ih + 18, 'text-anchor':'middle'}, svg); t.textContent = sgn(e, 1) + '%'; }
+  el('line', {x1:XV(o.med), x2:XV(o.med), y1:m.t, y2:m.t + ih, style:'stroke:var(--ink);stroke-width:1.6'}, svg);
+  const xt = el('text', {x:m.l + iw / 2, y:H - 8, 'text-anchor':'middle'}, svg); xt.textContent = l.xTitle;
+  const tip = document.createElement('div'); tip.className = 'tip'; tip.style.display = 'none'; tip.dir = state.lang === 'ar' ? 'rtl' : 'ltr'; host.appendChild(tip);
+  host.onpointermove = ev => {
+    const r = host.getBoundingClientRect(), px = ev.clientX - r.left, j = Math.floor((px - m.l) / sw);
+    if (j < 0 || j >= S) { tip.style.display = 'none'; return; }
+    const p = nf(share[j], 1), a = Math.round((-LIM + (j - 1) * BW) * 10) / 10, b = Math.round((a + BW) * 10) / 10;
+    tip.innerHTML = `<div class="d">${j === 0 ? l.tipBelow(cnt[j], p) : j === S - 1 ? l.tipAbove(cnt[j], p) : l.tipBin('[' + sgn(a, 1) + '%', sgn(b, 1) + '%)', cnt[j], p)}</div>`;
+    tip.style.display = 'block'; const tw = tip.offsetWidth; let left = XS(j) + sw + 8; if (left + tw > W - 4) left = XS(j) - 8 - tw; tip.style.left = Math.max(4, left) + 'px'; tip.style.top = Math.max(2, m.t) + 'px';
+  };
+  host.onpointerleave = () => { tip.style.display = 'none'; };
+}
+
+function renderDisp(){
+  const l = L(), i0 = rangeStartFor(state.cr);
+  const g24 = sortNum(GAP.filter((g, i) => g != null && DATA.d[i] >= '2024-01-01')), nAll = GAP.filter(g => g != null).length;
+  const controls = `<div class="controls"><span></span>${segHTML('cr', ['6M','1Y','5Y','ALL'], state.cr)}</div><div class="key nk"><span><i style="background:var(--ink);height:3px;vertical-align:3px"></i>${l.dispMedT}</span><span><i style="background:var(--muted);opacity:.35"></i>${l.dispBandT}</span></div>`;
+  document.getElementById('dispersion').innerHTML = `<div class="wrap" style="padding:0">${frameWrap(l.dispT, l.dispS, l.dispTake(nf(pctl(g24, .5), 2), nf(pctl(g24, .95), 2)), controls, '<div class="plot"><div class="host" id="disphost"></div></div>', '', l.dispMethod(nAll.toLocaleString('en-US')), l, 'disphost')}</div>`;
+  drawDisp();
+}
+function drawDisp(){
+  const host = document.getElementById('disphost'); if (!host) return; const l = L(), i0 = rangeStartFor(state.cr);
+  drawChart(host, {height:310, i0, zero:true, endLabels:true, mr:state.lang === 'ar' ? 104 : 96, yFmt:yDec,
+    ribbon:{lo:DLO, hi:DHI, color:'var(--muted)'},
+    series:[{id:'gap', data:DMED, color:'var(--ink)', w:2.2, label:l.dispMed}],
+    tip:i => ({rows:[{name:l.dispMedT, color:'var(--ink)', value:DMED[i] == null ? '—' : nf(DMED[i], 2) + '%'}, {name:l.dispBandT, color:'var(--muted)', value:DLO[i] == null ? '—' : '[' + nf(DLO[i], 2) + '%, ' + nf(DHI[i], 2) + '%]'}, {name:l.dispDay, color:'var(--muted)', value:GAP[i] == null ? '—' : nf(GAP[i], 2) + '%'}], foot:l.dispFoot})});
+}
+
+/* ---------------------------------------------------------------- dinar rate against the dollar (reciprocal of the dollar rate) */
+const recip = v => v == null ? null : 1 / v;
+const INV = {b:DATA.b.map(recip), s:DATA.s.map(recip), e:DATA.e.map(recip), o:OFF.map(recip)};
+const INV_KEYS = ['b','s','e','o'];
+const nf6 = v => nf(v, 6);
+function renderInv(){
+  const l = L(), i0 = rangeStartFor(state.ir);
+  const chips = INV_KEYS.map(k => `<button class="chip${k==='o'?' dash':''}" type="button" data-ik="${k}" aria-pressed="${state.inv[k]}" style="--sw:${SERIES[k].color}"><i></i>${l.names[k]}</button>`).join('');
+  const controls = `<div class="controls"><div class="chips" role="group">${chips}</div>${segHTML('ir', ['1M','3M','6M','1Y','5Y','ALL'], state.ir)}</div>`;
+  const take = l.invTake(fdl(DATA.d[iB]), nf6(INV.b[iB]), nf(DATA.b[iB], 1));
+  document.getElementById('inverse').innerHTML = `<div class="wrap" style="padding:0">${frameWrap(l.invT, l.invS, take, controls, '<div class="plot"><div class="host" id="invhost"></div></div>', evNotes(i0, true), l.invMethod(), l, 'invhost', l.src)}</div>`;
+  drawInv();
+}
+function drawInv(){
+  const host = document.getElementById('invhost'); if (!host) return; const l = L(), i0 = rangeStartFor(state.ir);
+  const series = INV_KEYS.filter(k => state.inv[k]).map(k => ({id:'i' + k, data:INV[k], color:SERIES[k].color, w:SERIES[k].w, dash:SERIES[k].dash, step:SERIES[k].step, label:l.short[k]}));
+  drawChart(host, {height:400, i0, series, events:true, endLabels:true, ml:72, label:l.invLabel, yFmt:v => v.toFixed(6),
+    tip:i => { const rows = INV_KEYS.filter(k => state.inv[k]).map(k => ({name:l.names[k], color:SERIES[k].color, value:INV[k][i] == null ? '—' : nf6(INV[k][i])})).sort((a,b) => (parseFloat(b.value) || -1) - (parseFloat(a.value) || -1)); return {rows, foot:rows.some(r => r.value === '—') ? l.noq : ''}; }});
+}
+
+/* ---------------------------------------------------------------- share kit */
+const shareURL = () => SITE_URL + (state.lang === 'ar' ? '?lang=ar' : '');
+function renderShare(){
+  const l = L(), u = encodeURIComponent(shareURL()), t = encodeURIComponent(l.shareText), tu = encodeURIComponent(l.shareText + ' ' + shareURL()), box = document.getElementById('share');
+  const a = (href, name) => `<a href="${href}" target="_blank" rel="noopener">${name}</a>`;
+  box.innerHTML = `<summary>${l.share}</summary><div class="menu">${a('https://www.linkedin.com/sharing/share-offsite/?url=' + u, 'LinkedIn')}${a('https://www.facebook.com/sharer/sharer.php?u=' + u, 'Facebook')}${a('https://wa.me/?text=' + tu, 'WhatsApp')}${a('https://t.me/share/url?url=' + u + '&text=' + t, 'Telegram')}${a('https://twitter.com/intent/tweet?url=' + u + '&text=' + t, 'X')}<button type="button" data-copy="link">${l.copyLink}</button></div>`;
+}
+async function copyText(text, btn){
+  try { await navigator.clipboard.writeText(text); }
+  catch (err) { const ta = document.createElement('textarea'); ta.value = text; ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e2) {} ta.remove(); }
+  const old = btn.textContent; btn.textContent = L().copied; setTimeout(() => { btn.textContent = old; }, 1800);
+}
+const EXPORTS = {
+  mainhost:{file:'iraq-dollar-rate', t:l => l.mainT, s:l => l.mainS, legend:l => ['b','s','e','o'].filter(k => state.on[k]).map(k => ({c:SERIES[k].color, t:l.names[k], k:k === 'o' ? 'dash' : 'line', w:3}))},
+  premhost:{file:'iraq-street-vs-official-rate', t:l => l.premT, s:l => l.premS, legend:() => []},
+  volhost:{file:'iraq-daily-volatility', t:l => l.volT, s:l => l.volS, legend:l => [{c:SERIES.b.color, t:l.volSdT, k:'line', w:4}, {c:SERIES.b.color, t:l.volMdT, k:'line', w:2}]},
+  disthost:{file:'iraq-daily-change-distribution', t:l => l.distT, s:l => l.distS, legend:l => [{c:'var(--c-bag)', t:l.kBars, k:'box'}, {c:'var(--muted)', t:l.kTail, k:'box', o:.75}, {c:'var(--accent-soft)', t:l.kBand, k:'box'}, {c:'var(--ink)', t:l.kMed, k:'line', w:3}]},
+  invhost:{file:'iraq-dinar-rate-against-dollar', t:l => l.invT, s:l => l.invS, legend:l => INV_KEYS.filter(k => state.inv[k]).map(k => ({c:SERIES[k].color, t:l.names[k], k:k === 'o' ? 'dash' : 'line', w:3}))},
+  disphost:{file:'iraq-city-dispersion', t:l => l.dispT, s:l => l.dispS, legend:l => [{c:'var(--ink)', t:l.dispMedT, k:'line', w:3}, {c:'var(--muted)', t:l.dispBandT, k:'box', o:.35}]}
+};
+async function exportChart(id){
+  const cfg = EXPORTS[id], host = document.getElementById(id), src = host && host.querySelector('svg'); if (!cfg || !src) return;
+  const l = L(), rtl = state.lang === 'ar', res = x => String(x).replace(/var\((--[\w-]+)\)/g, (_, n) => LIGHT[n] || n);
+  const esc = x => String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const W = 1200, pad = 44, vb = src.viewBox.baseVal, chartH = Math.round(vb.height * (W - 2 * pad) / vb.width);
+  const SERIF = "Georgia, 'Times New Roman', serif", SANS = rtl ? 'Tahoma, Arial, sans-serif' : 'Arial, Helvetica, sans-serif';
+  const anchor = 'start', ax = rtl ? W - pad : pad, dir = rtl ? 'rtl' : 'ltr', mctx = document.createElement('canvas').getContext('2d');
+  const fit = (text, size, family, weight) => { mctx.font = `${weight || 400} ${size}px ${family}`; const w = mctx.measureText(text).width, max = W - 2 * pad; return w > max ? Math.max(10, size * max / w) : size; };
+  const legend = cfg.legend(l), notes = [...host.closest('.frame').querySelectorAll('.notes li')].map(li => li.textContent.replace(/\s+/g, ' ').trim());
+  const headH = 92 + (legend.length ? 34 : 0), notesH = notes.length ? notes.length * 22 + 12 : 0, footH = 78, H = headH + chartH + notesH + footH;
+  const body = src.cloneNode(true);
+  body.setAttribute('x', pad); body.setAttribute('y', headH); body.setAttribute('width', W - 2 * pad); body.setAttribute('height', chartH); body.setAttribute('style', 'overflow:visible');
+  body.querySelectorAll('[style]').forEach(n => n.setAttribute('style', res(n.getAttribute('style'))));
+  body.querySelectorAll('text').forEach(n => { const st = n.getAttribute('style') || ''; if (!/fill:/.test(st)) n.setAttribute('fill', LIGHT['--muted']); n.setAttribute('font-family', SANS); if (!/font-size/.test(st)) n.setAttribute('font-size', '12'); });
+  host.querySelectorAll('.lbl').forEach(d => { const t = document.createElementNS('http://www.w3.org/2000/svg', 'text'); t.setAttribute('x', parseFloat(d.style.left)); t.setAttribute('y', parseFloat(d.style.top) + 12); t.setAttribute('fill', res(d.style.color)); t.setAttribute('font-family', SANS); t.setAttribute('font-size', '14'); t.setAttribute('font-weight', '700'); t.textContent = d.textContent; body.appendChild(t); });
+  let lg = '', lx = rtl ? W - pad : pad; const ly = 88 + 14;
+  legend.forEach(it => {
+    mctx.font = `14px ${SANS}`; const tw = mctx.measureText(it.t).width, sw = 26, col = res(it.c), w = it.w || 3;
+    const x0 = rtl ? lx - sw : lx;
+    lg += it.k === 'box' ? `<rect x="${x0}" y="${ly - 7}" width="${sw - 10}" height="14" fill="${col}" opacity="${it.o || 1}" stroke="${LIGHT['--rule']}"/>` : `<line x1="${x0}" x2="${x0 + sw - 6}" y1="${ly}" y2="${ly}" stroke="${col}" stroke-width="${w}" ${it.k === 'dash' ? 'stroke-dasharray="6 4"' : ''}/>`;
+    lg += `<text x="${rtl ? x0 - 8 : x0 + sw + 2}" y="${ly + 5}" text-anchor="${anchor}" direction="${dir}" font-family="${SANS}" font-size="14" fill="${LIGHT['--ink']}">${esc(it.t)}</text>`;
+    lx += (rtl ? -1 : 1) * (sw + tw + 32);
+  });
+  const ny = headH + chartH + 24; let nt = '';
+  notes.forEach((n, i) => { nt += `<text x="${ax}" y="${ny + i * 22}" text-anchor="${anchor}" direction="${dir}" font-family="${SANS}" font-size="${fit(n, 13, SANS)}" fill="${LIGHT['--muted']}">${esc(n)}</text>`; });
+  const title = cfg.t(l), sub = cfg.s(l), fy = H - footH + 24;
+  const foot1 = l.srcB, foot2 = `${l.dataTo} ${fd(DATA.d[N - 1])} · CC BY 4.0 · husseinkh90.github.io/Iraq-parallel-exchange-rate · doi:10.5281/zenodo.23209867`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><rect width="${W}" height="${H}" fill="${LIGHT['--panel']}"/><rect width="${W}" height="6" fill="${LIGHT['--accent']}"/>`
+    + `<text x="${ax}" y="46" text-anchor="${anchor}" direction="${dir}" font-family="${rtl ? SANS : SERIF}" font-size="${fit(title, 28, rtl ? SANS : SERIF, 700)}" font-weight="700" fill="${LIGHT['--ink']}">${esc(title)}</text>`
+    + `<text x="${ax}" y="72" text-anchor="${anchor}" direction="${dir}" font-family="${SANS}" font-size="${fit(sub, 16, SANS)}" fill="${LIGHT['--muted']}">${esc(sub)}</text>`
+    + lg + new XMLSerializer().serializeToString(body) + nt
+    + `<line x1="${pad}" x2="${W - pad}" y1="${H - footH + 4}" y2="${H - footH + 4}" stroke="${LIGHT['--rule']}"/>`
+    + `<text x="${ax}" y="${fy}" text-anchor="${anchor}" direction="${dir}" font-family="${SANS}" font-size="${fit(foot1, 13, SANS)}" fill="${LIGHT['--muted']}">${esc(foot1)}</text>`
+    + `<text x="${ax}" y="${fy + 22}" text-anchor="${anchor}" direction="${dir}" font-family="${SANS}" font-size="${fit(foot2, 13, SANS)}" fill="${LIGHT['--muted']}">${esc(foot2)}</text></svg>`;
+  const img = new Image(), url = URL.createObjectURL(new Blob([svg], {type:'image/svg+xml;charset=utf-8'}));
+  await new Promise((ok, bad) => { img.onload = ok; img.onerror = bad; img.src = url; });
+  const cv = document.createElement('canvas'); cv.width = W * 2; cv.height = H * 2; const cx = cv.getContext('2d'); cx.fillStyle = LIGHT['--panel']; cx.fillRect(0, 0, cv.width, cv.height); cx.drawImage(img, 0, 0, cv.width, cv.height); URL.revokeObjectURL(url);
+  cv.toBlob(b => { const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = `${cfg.file}-${DATA.d[N - 1]}.png`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 5000); }, 'image/png');
+}
+document.addEventListener('click', ev => {
+  const dl = ev.target.closest('[data-dl]'), cp = ev.target.closest('[data-copy]'), sh = document.getElementById('share');
+  if (dl) exportChart(dl.dataset.dl).catch(e => console.error('image export failed:', e && e.message || e));
+  else if (cp){ const k = cp.dataset.copy; copyText(k === 'link' ? shareURL() : k === 'apa' ? CITE_APA : CITE_BIB, cp); }
+  if (sh && sh.open && !sh.contains(ev.target)) sh.open = false;
+});
+document.addEventListener('keydown', ev => { const sh = document.getElementById('share'); if (ev.key === 'Escape' && sh && sh.open){ sh.open = false; sh.querySelector('summary').focus(); } });
+
+/* ---------------------------------------------------------------- events */
+document.getElementById('lang').addEventListener('click', () => { state.lang = state.lang === 'en' ? 'ar' : 'en'; try { localStorage.setItem('fxlang', state.lang); } catch (err) {} renderAll(); });
+document.getElementById('main').addEventListener('click', ev => {
+  const c = ev.target.closest('[data-k]'), r = ev.target.closest('[data-r]'), t = ev.target.closest('[data-t]');
+  if (c){ const k = c.dataset.k, n = Object.values(state.on).filter(Boolean).length; if (state.on[k] && n === 1) return; state.on[k] = !state.on[k]; renderMain(); const b = document.querySelector(`[data-k="${k}"]`); if (b) b.focus(); }
+  else if (r){ state.range = r.dataset.r; renderMain(); const b = document.querySelector(`[data-r="${r.dataset.r}"]`); if (b) b.focus(); }
+  else if (t){ state.tab = t.dataset.t; renderMain(); const b = document.querySelector(`[data-t="${t.dataset.t}"]`); if (b) b.focus(); }
+});
+document.getElementById('inverse').addEventListener('click', ev => {
+  const c = ev.target.closest('[data-ik]'), r = ev.target.closest('[data-g="ir"]');
+  if (c){ const k = c.dataset.ik, n = INV_KEYS.filter(x => state.inv[x]).length; if (state.inv[k] && n === 1) return; state.inv[k] = !state.inv[k]; renderInv(); const b = document.querySelector(`[data-ik="${k}"]`); if (b) b.focus(); }
+  else if (r){ state.ir = r.dataset.r; renderInv(); const b = document.querySelector(`[data-g="ir"][data-r="${r.dataset.r}"]`); if (b) b.focus(); }
+});
+['stability', 'dispersion'].forEach(id => document.getElementById(id).addEventListener('click', ev => {
+  const b = ev.target.closest('[data-g]'); if (!b) return; const g = b.dataset.g; state[g] = b.dataset.r;
+  ({vr:renderVol, dr:renderDist, cr:renderDisp})[g](); const nb = document.querySelector(`[data-g="${g}"][data-r="${b.dataset.r}"]`); if (nb) nb.focus();
+}));
+let rq = 0, lastW = 0;
+new ResizeObserver(() => { const w = document.getElementById('app').clientWidth; if (w === lastW) return; lastW = w; cancelAnimationFrame(rq); rq = requestAnimationFrame(() => { fitTitle(); drawMain(); drawInv(); drawPremium(); drawVol(); drawDist(); drawDisp(); }); }).observe(document.getElementById('app'));
+renderAll();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTitle);
+})();
+</script>
+</body>
+</html>
