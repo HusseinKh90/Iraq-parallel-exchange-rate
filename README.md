@@ -3,8 +3,9 @@
 **[العربية](README.ar.md)** | English
 
 An open dataset and dashboard tracking the **parallel-market** US-dollar exchange rate in Iraq. This project automatically monitors public channels to provide the daily street rates that the Central Bank of Iraq no longer publishes.
+بيانات مفتوحة لأسعار صرف الدولار مقابل الدينار العراقي في السوق الموازية، تشمل بغداد والبصرة وأربيل، مع بيانات تاريخية قابلة للتنزيل وتوثيق للمصادر.
 
-- 📈 **Live dashboard:** [Iraq Parallel Exchange Rate](https://HusseinKh90.github.io/Iraq-parallel-exchange-rate/)
+- 📈 **Live dashboard: Iraq Parallel Exchange Rate Dataset** [Iraq Parallel Exchange Rate](https://HusseinKh90.github.io/Iraq-parallel-exchange-rate/)
 - 💾 **Data Download:** [data/daily_fx.csv](data/daily_fx.csv) (A simple CSV containing the daily average exchange rates by city. Free to download and use.)
 
 > **Disclaimer:** This is an aggregated parallel-market dataset derived from public channels. It is **not** an official Central Bank rate and **not** financial advice.
