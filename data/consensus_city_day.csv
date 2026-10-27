@@ -9265,6 +9265,12 @@ date,city,n_sources,n_used,consensus_open,consensus_close,min_close,max_close,sp
 2026-10-25,baghdad_generic,3,3,1685.0,1678.33,1672.5,1685.0,12.5,0.745,,dollar_price:1685|dollariraqi:1677.5|iqborsa:1672.5
 2026-10-25,basra,2,2,1685.0,1681.5,1678.0,1685.0,7.0,0.416,,dollar_price:1685|dollariraqi:1678
 2026-10-25,erbil,2,2,1685.5,1680.75,1676.0,1685.5,9.5,0.565,,dollar_price:1685.5|dollariraqi:1676
-2026-10-26,baghdad_generic,3,3,1676.17,1680.0,1677.5,1682.5,5.0,0.298,,dollar_price:1677.5|dollariraqi:1682.5|iqborsa:1680
+2026-10-26,baghdad_generic,3,3,1676.17,1680.33,1677.5,1682.5,5.0,0.298,,dollar_price:1677.5|dollariraqi:1682.5|iqborsa:1681
 2026-10-26,basra,2,2,1675.5,1680.0,1677.5,1682.5,5.0,0.298,,dollar_price:1677.5|dollariraqi:1682.5
 2026-10-26,erbil,2,2,1676.5,1680.75,1678.5,1683.0,4.5,0.268,,dollar_price:1678.5|dollariraqi:1683
+2026-10-27,baghdad_generic,2,2,1681.75,1681.75,1680.0,1683.5,3.5,0.208,,dollariraqi:1683.5|iqborsa:1680
+2026-10-27,baghdad_harithiya,1,1,1681.0,1681.0,1681.0,1681.0,0.0,0.0,,dollariraqi:1681
+2026-10-27,baghdad_kifah,1,1,1681.0,1681.0,1681.0,1681.0,0.0,0.0,,dollariraqi:1681
+2026-10-27,baghdad_samawal,1,1,1680.0,1680.0,1680.0,1680.0,0.0,0.0,,dollariraqi:1680
+2026-10-27,basra,1,1,1680.0,1680.0,1680.0,1680.0,0.0,0.0,,dollariraqi:1680
+2026-10-27,erbil,1,1,1682.0,1682.0,1682.0,1682.0,0.0,0.0,,dollariraqi:1682
