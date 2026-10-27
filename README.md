@@ -100,4 +100,4 @@ The finished CSVs are written to `data/`; the scrape cache and audit trail are k
 - **Units:** Rates are tracked internally as IQD per 1 USD (e.g., 1507.8). Iraqi street prices are usually quoted per 100 USD (e.g., 150,780). You can multiply by 100 to match the street form.
 - **License:** CC-BY 4.0 — free to use with attribution.
 - **APA (7th Edition)**
-  > Hussein, H. (2026). *Iraq Parallel Exchange Rate: High-Frequency Telegram Market Dataset* (Version 1.0.0) [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.23209867](https://doi.org/10.5281/zenodo.23209867)
+  > Hussein, H. K. (2026). Iraq Parallel Exchange Rate: High-Frequency Telegram Market Dataset (Version v1.0.0) [Dataset]. Zenodo. https://doi.org/10.5281/zenodo.23209867
