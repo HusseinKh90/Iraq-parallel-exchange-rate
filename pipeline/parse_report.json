@@ -20,13 +20,13 @@
     }
   },
   "iqborsa": {
-    "posts": 9278,
-    "posts_with_readings": 4745,
+    "posts": 9281,
+    "posts_with_readings": 4746,
     "match_rate": 0.5114,
-    "readings": 5358,
+    "readings": 5359,
     "borsa_days": 833,
     "by_matcher": {
-      "iqborsa:city_line": 3633,
+      "iqborsa:city_line": 3634,
       "iqborsa:bare_number": 403,
       "iqborsa:dollar_label": 397,
       "iqborsa:bare_buy_sell": 252,
@@ -35,7 +35,7 @@
       "iqborsa:buy_sell_block": 12
     },
     "dropped": {
-      "no_match": 3705,
+      "no_match": 3707,
       "breaking_news": 219,
       "gold_post": 141,
       "mailbag": 128,
@@ -49,9 +49,9 @@
     }
   },
   "dollar_price": {
-    "posts": 5478,
+    "posts": 5479,
     "posts_with_readings": 3466,
-    "match_rate": 0.6327,
+    "match_rate": 0.6326,
     "readings": 8654,
     "borsa_days": 2056,
     "by_matcher": {
@@ -65,7 +65,7 @@
       "no_match": 816,
       "phone_ad": 447,
       "empty": 411,
-      "job_ad": 235,
+      "job_ad": 236,
       "discarded_city": 93,
       "self_promo": 6,
       "product_ad": 3,
