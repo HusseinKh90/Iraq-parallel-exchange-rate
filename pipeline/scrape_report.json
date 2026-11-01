@@ -4,9 +4,9 @@
     "mode": "update",
     "pages": 2,
     "added": 2,
-    "total": 6502,
+    "total": 6504,
     "first_date": "2020-12-01",
-    "last_date": "2026-10-31",
+    "last_date": "2026-11-01",
     "stop_reason": "caught up with cache",
     "path": "pipeline/raw/dollariraqi.jsonl"
   },
@@ -14,10 +14,10 @@
     "channel": "iqborsa",
     "mode": "update",
     "pages": 2,
-    "added": 3,
-    "total": 9284,
+    "added": 4,
+    "total": 9288,
     "first_date": "2023-06-17",
-    "last_date": "2026-10-31",
+    "last_date": "2026-11-01",
     "stop_reason": "caught up with cache",
     "path": "pipeline/raw/iqborsa.jsonl"
   },
@@ -26,9 +26,9 @@
     "mode": "update",
     "pages": 2,
     "added": 4,
-    "total": 5483,
+    "total": 5487,
     "first_date": "2017-03-21",
-    "last_date": "2026-10-31",
+    "last_date": "2026-11-01",
     "stop_reason": "caught up with cache",
     "path": "pipeline/raw/dollar_price.jsonl"
   }
