@@ -1,12 +1,12 @@
 {
   "dollariraqi": {
-    "posts": 6518,
-    "posts_with_readings": 4492,
-    "match_rate": 0.6892,
-    "readings": 12792,
-    "borsa_days": 1452,
+    "posts": 6520,
+    "posts_with_readings": 4494,
+    "match_rate": 0.6893,
+    "readings": 12798,
+    "borsa_days": 1453,
     "by_matcher": {
-      "dollariraqi:city_table": 4445,
+      "dollariraqi:city_table": 4447,
       "dollariraqi:direct_scale_2021": 41,
       "dollariraqi:general_market": 6
     },
@@ -20,13 +20,13 @@
     }
   },
   "iqborsa": {
-    "posts": 9309,
-    "posts_with_readings": 4762,
-    "match_rate": 0.5115,
-    "readings": 5375,
-    "borsa_days": 839,
+    "posts": 9311,
+    "posts_with_readings": 4764,
+    "match_rate": 0.5117,
+    "readings": 5377,
+    "borsa_days": 840,
     "by_matcher": {
-      "iqborsa:city_line": 3650,
+      "iqborsa:city_line": 3652,
       "iqborsa:bare_number": 403,
       "iqborsa:dollar_label": 397,
       "iqborsa:bare_buy_sell": 252,
@@ -49,13 +49,13 @@
     }
   },
   "dollar_price": {
-    "posts": 5508,
-    "posts_with_readings": 3486,
-    "match_rate": 0.6329,
-    "readings": 8674,
-    "borsa_days": 2062,
+    "posts": 5512,
+    "posts_with_readings": 3489,
+    "match_rate": 0.633,
+    "readings": 8677,
+    "borsa_days": 2063,
     "by_matcher": {
-      "dollar_price:city_table": 2435,
+      "dollar_price:city_table": 2438,
       "dollar_price:city_buy_sell": 1014,
       "dollar_price:narrative_2017": 27,
       "dollar_price:city_table_truncated": 7,
@@ -66,7 +66,7 @@
       "phone_ad": 447,
       "empty": 411,
       "job_ad": 237,
-      "discarded_city": 101,
+      "discarded_city": 102,
       "self_promo": 6,
       "product_ad": 3,
       "campaign": 1
@@ -78,11 +78,11 @@
       "dollariraqi",
       "iqborsa"
     ],
-    "city_day_rows": 9299,
-    "corroborated_rows": 3731,
+    "city_day_rows": 9302,
+    "corroborated_rows": 3734,
     "screened_rows": 15,
     "validation_days": 607,
-    "dataset_days": 1511,
+    "dataset_days": 1512,
     "median_spread_pct_when_multi": 0.071
   }
 }
