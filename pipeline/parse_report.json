@@ -20,9 +20,9 @@
     }
   },
   "iqborsa": {
-    "posts": 9319,
+    "posts": 9320,
     "posts_with_readings": 4770,
-    "match_rate": 0.5119,
+    "match_rate": 0.5118,
     "readings": 5383,
     "borsa_days": 843,
     "by_matcher": {
@@ -36,7 +36,7 @@
     },
     "dropped": {
       "no_match": 3718,
-      "breaking_news": 220,
+      "breaking_news": 221,
       "gold_post": 142,
       "mailbag": 129,
       "attributed_news": 108,
@@ -49,9 +49,9 @@
     }
   },
   "dollar_price": {
-    "posts": 5520,
+    "posts": 5521,
     "posts_with_readings": 3495,
-    "match_rate": 0.6332,
+    "match_rate": 0.633,
     "readings": 8683,
     "borsa_days": 2065,
     "by_matcher": {
@@ -65,7 +65,7 @@
       "no_match": 816,
       "phone_ad": 447,
       "empty": 411,
-      "job_ad": 237,
+      "job_ad": 238,
       "discarded_city": 104,
       "self_promo": 6,
       "product_ad": 3,
