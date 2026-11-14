@@ -1,12 +1,12 @@
 {
   "dollariraqi": {
-    "posts": 6526,
-    "posts_with_readings": 4499,
+    "posts": 6527,
+    "posts_with_readings": 4500,
     "match_rate": 0.6894,
-    "readings": 12813,
+    "readings": 12816,
     "borsa_days": 1456,
     "by_matcher": {
-      "dollariraqi:city_table": 4452,
+      "dollariraqi:city_table": 4453,
       "dollariraqi:direct_scale_2021": 41,
       "dollariraqi:general_market": 6
     },
@@ -20,13 +20,13 @@
     }
   },
   "iqborsa": {
-    "posts": 9320,
-    "posts_with_readings": 4770,
-    "match_rate": 0.5118,
-    "readings": 5383,
+    "posts": 9323,
+    "posts_with_readings": 4772,
+    "match_rate": 0.5119,
+    "readings": 5385,
     "borsa_days": 843,
     "by_matcher": {
-      "iqborsa:city_line": 3658,
+      "iqborsa:city_line": 3660,
       "iqborsa:bare_number": 403,
       "iqborsa:dollar_label": 397,
       "iqborsa:bare_buy_sell": 252,
@@ -35,7 +35,7 @@
       "iqborsa:buy_sell_block": 12
     },
     "dropped": {
-      "no_match": 3718,
+      "no_match": 3719,
       "breaking_news": 221,
       "gold_post": 142,
       "mailbag": 129,
@@ -49,13 +49,13 @@
     }
   },
   "dollar_price": {
-    "posts": 5521,
-    "posts_with_readings": 3495,
-    "match_rate": 0.633,
-    "readings": 8683,
+    "posts": 5525,
+    "posts_with_readings": 3498,
+    "match_rate": 0.6331,
+    "readings": 8686,
     "borsa_days": 2065,
     "by_matcher": {
-      "dollar_price:city_table": 2444,
+      "dollar_price:city_table": 2447,
       "dollar_price:city_buy_sell": 1014,
       "dollar_price:narrative_2017": 27,
       "dollar_price:city_table_truncated": 7,
@@ -66,7 +66,7 @@
       "phone_ad": 447,
       "empty": 411,
       "job_ad": 238,
-      "discarded_city": 104,
+      "discarded_city": 105,
       "self_promo": 6,
       "product_ad": 3,
       "campaign": 1
