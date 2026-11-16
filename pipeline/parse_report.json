@@ -1,12 +1,12 @@
 {
   "dollariraqi": {
-    "posts": 6529,
-    "posts_with_readings": 4502,
-    "match_rate": 0.6895,
-    "readings": 12822,
-    "borsa_days": 1457,
+    "posts": 6531,
+    "posts_with_readings": 4504,
+    "match_rate": 0.6896,
+    "readings": 12828,
+    "borsa_days": 1458,
     "by_matcher": {
-      "dollariraqi:city_table": 4455,
+      "dollariraqi:city_table": 4457,
       "dollariraqi:direct_scale_2021": 41,
       "dollariraqi:general_market": 6
     },
@@ -20,13 +20,13 @@
     }
   },
   "iqborsa": {
-    "posts": 9328,
-    "posts_with_readings": 4775,
-    "match_rate": 0.5119,
-    "readings": 5388,
-    "borsa_days": 844,
+    "posts": 9333,
+    "posts_with_readings": 4777,
+    "match_rate": 0.5118,
+    "readings": 5390,
+    "borsa_days": 845,
     "by_matcher": {
-      "iqborsa:city_line": 3663,
+      "iqborsa:city_line": 3665,
       "iqborsa:bare_number": 403,
       "iqborsa:dollar_label": 397,
       "iqborsa:bare_buy_sell": 252,
@@ -35,12 +35,12 @@
       "iqborsa:buy_sell_block": 12
     },
     "dropped": {
-      "no_match": 3719,
+      "no_match": 3721,
       "breaking_news": 221,
       "gold_post": 142,
       "mailbag": 131,
       "attributed_news": 108,
-      "discarded_city": 78,
+      "discarded_city": 79,
       "cross_promo": 74,
       "empty": 69,
       "subscriber_milestone": 7,
@@ -49,13 +49,13 @@
     }
   },
   "dollar_price": {
-    "posts": 5529,
-    "posts_with_readings": 3501,
-    "match_rate": 0.6332,
-    "readings": 8689,
-    "borsa_days": 2066,
+    "posts": 5533,
+    "posts_with_readings": 3504,
+    "match_rate": 0.6333,
+    "readings": 8692,
+    "borsa_days": 2067,
     "by_matcher": {
-      "dollar_price:city_table": 2450,
+      "dollar_price:city_table": 2453,
       "dollar_price:city_buy_sell": 1014,
       "dollar_price:narrative_2017": 27,
       "dollar_price:city_table_truncated": 7,
@@ -66,7 +66,7 @@
       "phone_ad": 447,
       "empty": 411,
       "job_ad": 238,
-      "discarded_city": 106,
+      "discarded_city": 107,
       "self_promo": 6,
       "product_ad": 3,
       "campaign": 1
@@ -78,11 +78,11 @@
       "dollariraqi",
       "iqborsa"
     ],
-    "city_day_rows": 9314,
-    "corroborated_rows": 3744,
+    "city_day_rows": 9317,
+    "corroborated_rows": 3747,
     "screened_rows": 15,
     "validation_days": 607,
-    "dataset_days": 1516,
+    "dataset_days": 1517,
     "median_spread_pct_when_multi": 0.071
   }
 }
