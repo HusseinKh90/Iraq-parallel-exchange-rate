@@ -49,9 +49,9 @@
     }
   },
   "dollar_price": {
-    "posts": 5545,
+    "posts": 5546,
     "posts_with_readings": 3513,
-    "match_rate": 0.6335,
+    "match_rate": 0.6334,
     "readings": 8701,
     "borsa_days": 2070,
     "by_matcher": {
@@ -65,7 +65,7 @@
       "no_match": 816,
       "phone_ad": 447,
       "empty": 411,
-      "job_ad": 238,
+      "job_ad": 239,
       "discarded_city": 110,
       "self_promo": 6,
       "product_ad": 3,
