@@ -9325,3 +9325,6 @@ date,city,n_sources,n_used,consensus_open,consensus_close,min_close,max_close,sp
 2026-11-19,baghdad_generic,3,3,1706.5,1706.5,1706.5,1706.5,0.0,0.0,,dollar_price:1706.5|dollariraqi:1706.5|iqborsa:1706.5
 2026-11-19,basra,2,2,1707.0,1707.0,1707.0,1707.0,0.0,0.0,,dollar_price:1707|dollariraqi:1707
 2026-11-19,erbil,2,2,1708.5,1708.5,1708.5,1708.5,0.0,0.0,,dollar_price:1708.5|dollariraqi:1708.5
+2026-11-22,baghdad_generic,3,3,1686.5,1686.5,1677.0,1696.0,19.0,1.127,,dollar_price:1686.5|dollariraqi:1677|iqborsa:1696
+2026-11-22,basra,1,1,1679.0,1679.0,1679.0,1679.0,0.0,0.0,,dollariraqi:1679
+2026-11-22,erbil,1,1,1680.5,1680.5,1680.5,1680.5,0.0,0.0,,dollariraqi:1680.5
