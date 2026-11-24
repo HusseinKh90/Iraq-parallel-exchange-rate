@@ -1,12 +1,12 @@
 {
   "dollariraqi": {
-    "posts": 6541,
-    "posts_with_readings": 4514,
-    "match_rate": 0.6901,
-    "readings": 12858,
-    "borsa_days": 1463,
+    "posts": 6544,
+    "posts_with_readings": 4517,
+    "match_rate": 0.6903,
+    "readings": 12867,
+    "borsa_days": 1464,
     "by_matcher": {
-      "dollariraqi:city_table": 4467,
+      "dollariraqi:city_table": 4470,
       "dollariraqi:direct_scale_2021": 41,
       "dollariraqi:general_market": 6
     },
@@ -20,13 +20,13 @@
     }
   },
   "iqborsa": {
-    "posts": 9343,
-    "posts_with_readings": 4785,
+    "posts": 9345,
+    "posts_with_readings": 4786,
     "match_rate": 0.5121,
-    "readings": 5398,
-    "borsa_days": 850,
+    "readings": 5399,
+    "borsa_days": 851,
     "by_matcher": {
-      "iqborsa:city_line": 3673,
+      "iqborsa:city_line": 3674,
       "iqborsa:bare_number": 403,
       "iqborsa:dollar_label": 397,
       "iqborsa:bare_buy_sell": 252,
@@ -35,7 +35,7 @@
       "iqborsa:buy_sell_block": 12
     },
     "dropped": {
-      "no_match": 3723,
+      "no_match": 3724,
       "breaking_news": 221,
       "gold_post": 142,
       "mailbag": 131,
@@ -49,13 +49,13 @@
     }
   },
   "dollar_price": {
-    "posts": 5552,
-    "posts_with_readings": 3518,
-    "match_rate": 0.6336,
-    "readings": 8706,
-    "borsa_days": 2072,
+    "posts": 5556,
+    "posts_with_readings": 3521,
+    "match_rate": 0.6337,
+    "readings": 8709,
+    "borsa_days": 2073,
     "by_matcher": {
-      "dollar_price:city_table": 2467,
+      "dollar_price:city_table": 2470,
       "dollar_price:city_buy_sell": 1014,
       "dollar_price:narrative_2017": 27,
       "dollar_price:city_table_truncated": 7,
@@ -66,7 +66,7 @@
       "phone_ad": 447,
       "empty": 411,
       "job_ad": 239,
-      "discarded_city": 111,
+      "discarded_city": 112,
       "self_promo": 6,
       "product_ad": 3,
       "campaign": 1
@@ -78,11 +78,11 @@
       "dollariraqi",
       "iqborsa"
     ],
-    "city_day_rows": 9332,
-    "corroborated_rows": 3758,
+    "city_day_rows": 9335,
+    "corroborated_rows": 3761,
     "screened_rows": 15,
     "validation_days": 607,
-    "dataset_days": 1522,
+    "dataset_days": 1523,
     "median_spread_pct_when_multi": 0.071
   }
 }
